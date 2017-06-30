@@ -1,9 +1,9 @@
 """Archivo principal de calculadora."""
-from calculator import parse
+from analizador import parse
 
 while True:
     try:
-        exp_str = raw_input('calc> ')
+        exp_str = raw_input('analize> ')
     except EOFError:
         break
     print(parse(exp_str))

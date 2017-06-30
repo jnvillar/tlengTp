@@ -21,21 +21,54 @@ muestra aquí abajo.
 """
 
 tokens = (
+    'TRUE',
+    'FALSE',
+    'IF',
+    'THEN',
+    'ELSE',
+    'ZERO',
+    'VARIABLE',
+    'BACKSLASH',
     'NUMBER',
-    'PLUS',
-    'TIMES',
-    'MINUS',
+    'DOT',
+    '2DOTS',
+    'OPENPARENTHESIS',
+    'CLOSEPARENTHESIS',
+    'SUCC',
+    'PRED',
+    'ISZERO',
+    'BOOL',
+    'NAT',
+    'ARROW',
 )
 
-t_PLUS = r'\+'
-t_MINUS = r'\-'
-t_TIMES = r'\*'
-t_ignore = ' \t'
-#t_NUMBER = r'\d+'
+t_TRUE = r'true'
+t_FALSE = r'false'
+t_IF = r'if'
+t_THEN = r'then'
+t_ELSE = r'else'
+t_ZERO = r'0'
+t_DOT = r'\.'
+t_BACKSLASH = r'\\'
+t_2DOTS = r'\:'
+t_OPENPARENTHESIS = r'\('
+t_CLOSEPARENTHESIS = r'\)'
+t_SUCC = r'succ'
+t_PRED = r'pred'
+t_ISZERO = r'iszero'
+t_BOOL = r'BOOL'
+t_NAT= r'NAT'
+t_ARROW = r'->'
 
+
+t_ignore = ' \t'
+
+def t_VARIABLE(t):
+    r'[a-z]\b'
+    return t
 
 def t_NUMBER(t):
-	r'\d+'
+	r'[1-9]([0-9]*)'
 	t.value = int(t.value)
 	return t
 

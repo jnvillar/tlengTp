@@ -56,8 +56,8 @@ t_CLOSEPARENTHESIS = r'\)'
 t_SUCC = r'succ'
 t_PRED = r'pred'
 t_ISZERO = r'iszero'
-t_BOOL = r'BOOL'
-t_NAT= r'NAT'
+t_BOOL = r'Bool'
+t_NAT= r'Nat'
 t_ARROW = r'->'
 
 

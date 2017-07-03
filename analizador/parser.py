@@ -34,7 +34,19 @@ def p_expression_if_then_else(p):
     e = Element()
     
     if (p[2].estaDefinido and p[4].estaDefinido and p[6].estaDefinido):
-        e.valor = ifs(p[2].valor, p[4].valor, p[6].valor)
+        if (p[2].error != None):
+            e.error = p[2].error
+        if (p[4].error != None):
+            e.error = p[2].error
+        if (p[6].error != None):
+            e.error = p[2].error       
+        if(p[2].tipo != 'Bool'):
+            e.error = 'ERROR: El if debe tener una condicion'
+        if(p[4].tipo != p[6].tipo):
+            e.error = 'ERROR: Las dos opciones del if deben tener el mismo tipo'
+        if(e.error == None):    
+            e.valor = ifs(p[2].valor, p[4].valor, p[6].valor)
+            e.tipo = p[4].tipo
     else:
         e.valor = ifs
         e.hijo1 = p[2]
@@ -104,16 +116,27 @@ def p_expression_variable(p):
 
 
 def p_expression_lambda(p):
-    'expression : BACKSLASH expression 2DOTS funcionType DOT expression expression_values'
+    'expression : BACKSLASH expression 2DOTS funcionType DOT expression'
     e = Element()
     e.tipo = 'Func'
-    if(p[7].valor == None):
-        e.valor = iden
-    else:
-        e.valor = p[6].evaluate(p[7].valor)
-    e.tipo = p[4].tipo 
+    e.valor = iden
+    e.tipo = p[4].tipo + '->' + p[6].tipo
     e.hijo1 = p[6]
     p[0] = e
+
+    
+def p_expression_application(p):
+    'expression :  OPENPARENTHESIS expression CLOSEPARENTHESIS expression_values'
+    e = Element()
+    e.tipo = 'Func'
+    if(p[4].valor == None):
+        e.valor = iden
+    else:
+        e.valor = p[2].evaluate(p[4].valor)
+    e.tipo = p[2].tipo.split('->')[1] 
+    e.hijo1 = p[2]
+    p[0] = e
+
 
 def p_expression_values(p):
     'expression_values : expression'
@@ -144,14 +167,18 @@ class Element(object):
         self.estaDefinido = True
         self.hijo2 = None
         self.hijo3 = None
+        self.error = None
 
     def __str__(self):
+        if(self.error != None):
+            return str(self.error)
         if(self.valor == s):
-            return 'succ('+str(self.hijo1)+')'
+            return 'succ('+str(self.hijo1)+'):'
         elif(self.valor == pred):
             return 'pred('+str(self.hijo1)+')'
         elif(self.valor == iden):
-            return '\\x:'+str(self.tipo)+'.'+str(self.hijo1)
+            tipo_aux = self.tipo.split('->')[0]
+            return '\\x:'+ tipo_aux +'.'+str(self.hijo1)
         elif(self.valor == ifs):
             return 'if '+str(self.hijo1)+' then '+str(self.hijo2)+' else '+str(self.hijo3)
         return str(self.valor).lower()

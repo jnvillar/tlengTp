@@ -36,14 +36,15 @@ def p_expression_if_then_else(p):
     if (p[2].estaDefinido and p[4].estaDefinido and p[6].estaDefinido):
         if (p[2].error != None):
             e.error = p[2].error
-        if (p[4].error != None):
+        elif (p[4].error != None):
             e.error = p[2].error
-        if (p[6].error != None):
-            e.error = p[2].error       
-        if(p[2].tipo != 'Bool'):
-            e.error = 'ERROR: El if debe tener una condicion'
-        if(p[4].tipo != p[6].tipo):
-            e.error = 'ERROR: Las dos opciones del if deben tener el mismo tipo'
+        elif (p[6].error != None):
+            e.error = p[2].error   
+        else:        
+            if(p[2].tipo != 'Bool'):
+                e.error = 'ERROR: El if debe tener una condicion'
+            if(p[4].tipo != p[6].tipo):
+                e.error = 'ERROR: Las dos opciones del if deben tener el mismo tipo'
         if(e.error == None):    
             e.valor = ifs(p[2].valor, p[4].valor, p[6].valor)
             e.tipo = p[4].tipo
@@ -73,7 +74,10 @@ def p_expression_pred(p):
     e = Element()
     e.hijo1 = p[3]
     if (p[3].estaDefinido):
-        e.valor = max(p[3].valor-1,0)
+        if (p[3].tipo =='Nat'):
+            e.valor = max(p[3].valor-1,0)
+        else:
+            e.error = "pred solo puede ser aplicada a naturales."
     else:
          e.valor = pred
          e.estaDefinido = False
@@ -86,7 +90,10 @@ def p_expression_succ(p):
     e = Element()
     e.hijo1 = p[3]
     if (p[3].estaDefinido):
-        e.valor = p[3].valor+1
+        if (p[3].tipo =='Nat'):
+            e.valor = p[3].valor+1
+        else:
+            e.error = "succ solo puede ser aplicada a naturales."
     else:
          e.valor = s
          e.estaDefinido = False
@@ -99,10 +106,17 @@ def p_expression_is_zero(p):
     'expression : ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS'
     e = Element()
     e.tipo = 'Bool'
-    if p[3].valor == 0:
-        e.valor = True
+    if p[3].estaDefinido:
+        if (p[3].tipo =='Nat'):
+            if(p[3].valor == 0):
+                e.valor = True
+            else:
+                e.valor = False
+        else:
+            e.error = "iszero solo puede ser aplicada a naturales."    
     else:
         e.valor = False
+        e.estaDefinido = False
     p[0] = e
 
 def p_expression_variable(p):

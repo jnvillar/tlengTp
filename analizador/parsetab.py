@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'TRUE FALSE IF THEN ELSE ZERO VARIABLE BACKSLASH NUMBER DOT 2DOTS OPENPARENTHESIS CLOSEPARENTHESIS SUCC PRED ISZERO BOOL NAT ARROWexpression : ZEROexpression : TRUEexpression : FALSEexpression : IF expression THEN expression ELSE expressionexpression : NUMBERexpression : PRED OPENPARENTHESIS expression CLOSEPARENTHESISexpression : SUCC OPENPARENTHESIS expression CLOSEPARENTHESISexpression : ISZERO OPENPARENTHESIS expression CLOSEPARENTHESISexpression : VARIABLEexpression : BACKSLASH VARIABLE 2DOTS expression DOT expressionexpression : expression expression'
+_lr_signature = 'TRUE FALSE IF THEN ELSE ZERO VARIABLE BACKSLASH NUMBER DOT 2DOTS OPENPARENTHESIS CLOSEPARENTHESIS SUCC PRED ISZERO TYPE ARROWexpression : ZEROexpression : TRUEexpression : FALSEexpression : IF expression THEN expression ELSE expressionexpression : NUMBERfuncionType : TYPEexpression : PRED OPENPARENTHESIS expression CLOSEPARENTHESISexpression : SUCC OPENPARENTHESIS expression CLOSEPARENTHESISexpression : ISZERO OPENPARENTHESIS expression CLOSEPARENTHESISexpression : VARIABLEexpression : BACKSLASH expression 2DOTS funcionType DOT expression expression_valuesexpression_values : expressionexpression_values : '
     
-_lr_action_items = {'CLOSEPARENTHESIS':([1,5,6,7,10,14,19,20,21,24,25,26,30,31,],[-3,-5,-9,-1,-2,-11,24,25,26,-7,-6,-8,-10,-4,]),'THEN':([1,5,6,7,10,14,17,24,25,26,30,31,],[-3,-5,-9,-1,-2,-11,22,-7,-6,-8,-10,-4,]),'OPENPARENTHESIS':([3,8,9,],[13,15,16,]),'FALSE':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[1,-3,1,-5,-9,-1,-2,1,1,1,1,1,1,1,1,1,1,1,1,-7,-6,-8,1,1,1,1,1,]),'PRED':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[8,-3,8,-5,-9,-1,-2,8,8,8,8,8,8,8,8,8,8,8,8,-7,-6,-8,8,8,8,8,8,]),'2DOTS':([12,],[18,]),'ZERO':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[7,-3,7,-5,-9,-1,-2,7,7,7,7,7,7,7,7,7,7,7,7,-7,-6,-8,7,7,7,7,7,]),'NUMBER':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[5,-3,5,-5,-9,-1,-2,5,5,5,5,5,5,5,5,5,5,5,5,-7,-6,-8,5,5,5,5,5,]),'BACKSLASH':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[2,-3,2,-5,-9,-1,-2,2,2,2,2,2,2,2,2,2,2,2,2,-7,-6,-8,2,2,2,2,2,]),'ISZERO':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[9,-3,9,-5,-9,-1,-2,9,9,9,9,9,9,9,9,9,9,9,9,-7,-6,-8,9,9,9,9,9,]),'SUCC':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[3,-3,3,-5,-9,-1,-2,3,3,3,3,3,3,3,3,3,3,3,3,-7,-6,-8,3,3,3,3,3,]),'VARIABLE':([0,1,2,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[6,-3,12,6,-5,-9,-1,-2,6,6,6,6,6,6,6,6,6,6,6,6,-7,-6,-8,6,6,6,6,6,]),'ELSE':([1,5,6,7,10,14,24,25,26,27,30,31,],[-3,-5,-9,-1,-2,-11,-7,-6,-8,29,-10,-4,]),'TRUE':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[10,-3,10,-5,-9,-1,-2,10,10,10,10,10,10,10,10,10,10,10,10,-7,-6,-8,10,10,10,10,10,]),'$end':([1,4,5,6,7,10,14,24,25,26,30,31,],[-3,0,-5,-9,-1,-2,-11,-7,-6,-8,-10,-4,]),'DOT':([1,5,6,7,10,14,23,24,25,26,30,31,],[-3,-5,-9,-1,-2,-11,28,-7,-6,-8,-10,-4,]),'IF':([0,1,4,5,6,7,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,],[11,-3,11,-5,-9,-1,-2,11,11,11,11,11,11,11,11,11,11,11,11,-7,-6,-8,11,11,11,11,11,]),}
+_lr_action_items = {'CLOSEPARENTHESIS':([1,5,6,7,10,18,19,20,24,25,26,30,31,32,33,],[-3,-5,-10,-1,-2,24,25,26,-8,-7,-9,-13,-4,-11,-12,]),'THEN':([1,5,6,7,10,16,24,25,26,30,31,32,33,],[-3,-5,-10,-1,-2,21,-8,-7,-9,-13,-4,-11,-12,]),'OPENPARENTHESIS':([3,8,9,],[13,14,15,]),'FALSE':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[1,-3,1,-5,-10,-1,-2,1,1,1,1,1,-8,-7,-9,1,1,1,-4,-11,-12,]),'PRED':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[8,-3,8,-5,-10,-1,-2,8,8,8,8,8,-8,-7,-9,8,8,8,-4,-11,-12,]),'2DOTS':([1,5,6,7,10,12,24,25,26,30,31,32,33,],[-3,-5,-10,-1,-2,17,-8,-7,-9,-13,-4,-11,-12,]),'ZERO':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[7,-3,7,-5,-10,-1,-2,7,7,7,7,7,-8,-7,-9,7,7,7,-4,-11,-12,]),'NUMBER':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[5,-3,5,-5,-10,-1,-2,5,5,5,5,5,-8,-7,-9,5,5,5,-4,-11,-12,]),'BACKSLASH':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[2,-3,2,-5,-10,-1,-2,2,2,2,2,2,-8,-7,-9,2,2,2,-4,-11,-12,]),'ISZERO':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[9,-3,9,-5,-10,-1,-2,9,9,9,9,9,-8,-7,-9,9,9,9,-4,-11,-12,]),'SUCC':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[3,-3,3,-5,-10,-1,-2,3,3,3,3,3,-8,-7,-9,3,3,3,-4,-11,-12,]),'VARIABLE':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[6,-3,6,-5,-10,-1,-2,6,6,6,6,6,-8,-7,-9,6,6,6,-4,-11,-12,]),'TYPE':([17,],[23,]),'ELSE':([1,5,6,7,10,24,25,26,27,30,31,32,33,],[-3,-5,-10,-1,-2,-8,-7,-9,29,-13,-4,-11,-12,]),'TRUE':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[10,-3,10,-5,-10,-1,-2,10,10,10,10,10,-8,-7,-9,10,10,10,-4,-11,-12,]),'$end':([1,4,5,6,7,10,24,25,26,30,31,32,33,],[-3,0,-5,-10,-1,-2,-8,-7,-9,-13,-4,-11,-12,]),'DOT':([22,23,],[28,-6,]),'IF':([0,1,2,5,6,7,10,11,13,14,15,21,24,25,26,28,29,30,31,32,33,],[11,-3,11,-5,-10,-1,-2,11,11,11,11,11,-8,-7,-9,11,11,11,-4,-11,-12,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,4,11,13,14,15,16,17,18,19,20,21,22,23,27,28,29,30,31,],[4,14,17,19,14,20,21,14,23,14,14,14,27,14,14,30,31,14,14,]),}
+_lr_goto_items = {'funcionType':([17,],[22,]),'expression':([0,2,11,13,14,15,21,28,29,30,],[4,12,16,18,19,20,27,30,31,33,]),'expression_values':([30,],[32,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,15 +26,17 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
-  ('expression -> ZERO','expression',1,'p_expression_zero','parser.py',8),
-  ('expression -> TRUE','expression',1,'p_expression_true','parser.py',14),
-  ('expression -> FALSE','expression',1,'p_expression_false','parser.py',20),
-  ('expression -> IF expression THEN expression ELSE expression','expression',6,'p_expression_if_then_else','parser.py',26),
-  ('expression -> NUMBER','expression',1,'p_expression_number','parser.py',36),
-  ('expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS','expression',4,'p_expression_pred','parser.py',42),
-  ('expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS','expression',4,'p_expression_succ','parser.py',52),
-  ('expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS','expression',4,'p_expression_is_zero','parser.py',58),
-  ('expression -> VARIABLE','expression',1,'p_expression_variable','parser.py',67),
-  ('expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression','expression',6,'p_expression_lambda','parser.py',73),
-  ('expression -> expression expression','expression',2,'p_expression_lambda_number','parser.py',79),
+  ('expression -> ZERO','expression',1,'p_expression_zero','parser.py',14),
+  ('expression -> TRUE','expression',1,'p_expression_true','parser.py',20),
+  ('expression -> FALSE','expression',1,'p_expression_false','parser.py',25),
+  ('expression -> IF expression THEN expression ELSE expression','expression',6,'p_expression_if_then_else','parser.py',30),
+  ('expression -> NUMBER','expression',1,'p_expression_number','parser.py',41),
+  ('funcionType -> TYPE','funcionType',1,'p_expression_type','parser.py',47),
+  ('expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS','expression',4,'p_expression_pred','parser.py',50),
+  ('expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS','expression',4,'p_expression_succ','parser.py',55),
+  ('expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS','expression',4,'p_expression_is_zero','parser.py',61),
+  ('expression -> VARIABLE','expression',1,'p_expression_variable','parser.py',71),
+  ('expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values','expression',7,'p_expression_lambda','parser.py',99),
+  ('expression_values -> expression','expression_values',1,'p_expression_values','parser.py',111),
+  ('expression_values -> <empty>','expression_values',0,'p_expression_values_empty','parser.py',115),
 ]

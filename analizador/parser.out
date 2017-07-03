@@ -3,8 +3,6 @@ Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     ARROW
-    BOOL
-    NAT
 
 Grammar
 
@@ -14,39 +12,42 @@ Rule 2     expression -> TRUE
 Rule 3     expression -> FALSE
 Rule 4     expression -> IF expression THEN expression ELSE expression
 Rule 5     expression -> NUMBER
-Rule 6     expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-Rule 7     expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-Rule 8     expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-Rule 9     expression -> VARIABLE
-Rule 10    expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression
-Rule 11    expression -> expression expression
+Rule 6     funcionType -> TYPE
+Rule 7     expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+Rule 8     expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+Rule 9     expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+Rule 10    expression -> VARIABLE
+Rule 11    expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values
+Rule 12    expression_values -> expression
+Rule 13    expression_values -> <empty>
 
 Terminals, with rules where they appear
 
-2DOTS                : 10
+2DOTS                : 11
 ARROW                : 
-BACKSLASH            : 10
-BOOL                 : 
-CLOSEPARENTHESIS     : 6 7 8
-DOT                  : 10
+BACKSLASH            : 11
+CLOSEPARENTHESIS     : 7 8 9
+DOT                  : 11
 ELSE                 : 4
 FALSE                : 3
 IF                   : 4
-ISZERO               : 8
-NAT                  : 
+ISZERO               : 9
 NUMBER               : 5
-OPENPARENTHESIS      : 6 7 8
-PRED                 : 6
-SUCC                 : 7
+OPENPARENTHESIS      : 7 8 9
+PRED                 : 7
+SUCC                 : 8
 THEN                 : 4
 TRUE                 : 2
-VARIABLE             : 9 10
+TYPE                 : 6
+VARIABLE             : 10
 ZERO                 : 1
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 4 4 4 6 7 8 10 10 11 11 0
+expression           : 4 4 4 7 8 9 11 11 12 0
+expression_values    : 11
+funcionType          : 11
 
 Parsing method: LALR
 
@@ -58,12 +59,11 @@ state 0
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
@@ -82,6 +82,7 @@ state 1
 
     (3) expression -> FALSE .
 
+    CLOSEPARENTHESIS reduce using rule 3 (expression -> FALSE .)
     ZERO            reduce using rule 3 (expression -> FALSE .)
     TRUE            reduce using rule 3 (expression -> FALSE .)
     FALSE           reduce using rule 3 (expression -> FALSE .)
@@ -93,41 +94,24 @@ state 1
     VARIABLE        reduce using rule 3 (expression -> FALSE .)
     BACKSLASH       reduce using rule 3 (expression -> FALSE .)
     $end            reduce using rule 3 (expression -> FALSE .)
+    2DOTS           reduce using rule 3 (expression -> FALSE .)
     THEN            reduce using rule 3 (expression -> FALSE .)
-    CLOSEPARENTHESIS reduce using rule 3 (expression -> FALSE .)
-    DOT             reduce using rule 3 (expression -> FALSE .)
     ELSE            reduce using rule 3 (expression -> FALSE .)
 
 
 state 2
 
-    (10) expression -> BACKSLASH . VARIABLE 2DOTS expression DOT expression
-
-    VARIABLE        shift and go to state 12
-
-
-state 3
-
-    (7) expression -> SUCC . OPENPARENTHESIS expression CLOSEPARENTHESIS
-
-    OPENPARENTHESIS shift and go to state 13
-
-
-state 4
-
-    (0) S' -> expression .
-    (11) expression -> expression . expression
+    (11) expression -> BACKSLASH . expression 2DOTS funcionType DOT expression expression_values
     (1) expression -> . ZERO
     (2) expression -> . TRUE
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
@@ -140,12 +124,26 @@ state 4
     VARIABLE        shift and go to state 6
     BACKSLASH       shift and go to state 2
 
-    expression                     shift and go to state 14
+    expression                     shift and go to state 12
+
+state 3
+
+    (8) expression -> SUCC . OPENPARENTHESIS expression CLOSEPARENTHESIS
+
+    OPENPARENTHESIS shift and go to state 13
+
+
+state 4
+
+    (0) S' -> expression .
+
+
 
 state 5
 
     (5) expression -> NUMBER .
 
+    CLOSEPARENTHESIS reduce using rule 5 (expression -> NUMBER .)
     ZERO            reduce using rule 5 (expression -> NUMBER .)
     TRUE            reduce using rule 5 (expression -> NUMBER .)
     FALSE           reduce using rule 5 (expression -> NUMBER .)
@@ -157,37 +155,37 @@ state 5
     VARIABLE        reduce using rule 5 (expression -> NUMBER .)
     BACKSLASH       reduce using rule 5 (expression -> NUMBER .)
     $end            reduce using rule 5 (expression -> NUMBER .)
+    2DOTS           reduce using rule 5 (expression -> NUMBER .)
     THEN            reduce using rule 5 (expression -> NUMBER .)
-    CLOSEPARENTHESIS reduce using rule 5 (expression -> NUMBER .)
-    DOT             reduce using rule 5 (expression -> NUMBER .)
     ELSE            reduce using rule 5 (expression -> NUMBER .)
 
 
 state 6
 
-    (9) expression -> VARIABLE .
+    (10) expression -> VARIABLE .
 
-    ZERO            reduce using rule 9 (expression -> VARIABLE .)
-    TRUE            reduce using rule 9 (expression -> VARIABLE .)
-    FALSE           reduce using rule 9 (expression -> VARIABLE .)
-    IF              reduce using rule 9 (expression -> VARIABLE .)
-    NUMBER          reduce using rule 9 (expression -> VARIABLE .)
-    PRED            reduce using rule 9 (expression -> VARIABLE .)
-    SUCC            reduce using rule 9 (expression -> VARIABLE .)
-    ISZERO          reduce using rule 9 (expression -> VARIABLE .)
-    VARIABLE        reduce using rule 9 (expression -> VARIABLE .)
-    BACKSLASH       reduce using rule 9 (expression -> VARIABLE .)
-    $end            reduce using rule 9 (expression -> VARIABLE .)
-    THEN            reduce using rule 9 (expression -> VARIABLE .)
-    CLOSEPARENTHESIS reduce using rule 9 (expression -> VARIABLE .)
-    DOT             reduce using rule 9 (expression -> VARIABLE .)
-    ELSE            reduce using rule 9 (expression -> VARIABLE .)
+    CLOSEPARENTHESIS reduce using rule 10 (expression -> VARIABLE .)
+    ZERO            reduce using rule 10 (expression -> VARIABLE .)
+    TRUE            reduce using rule 10 (expression -> VARIABLE .)
+    FALSE           reduce using rule 10 (expression -> VARIABLE .)
+    IF              reduce using rule 10 (expression -> VARIABLE .)
+    NUMBER          reduce using rule 10 (expression -> VARIABLE .)
+    PRED            reduce using rule 10 (expression -> VARIABLE .)
+    SUCC            reduce using rule 10 (expression -> VARIABLE .)
+    ISZERO          reduce using rule 10 (expression -> VARIABLE .)
+    VARIABLE        reduce using rule 10 (expression -> VARIABLE .)
+    BACKSLASH       reduce using rule 10 (expression -> VARIABLE .)
+    $end            reduce using rule 10 (expression -> VARIABLE .)
+    2DOTS           reduce using rule 10 (expression -> VARIABLE .)
+    THEN            reduce using rule 10 (expression -> VARIABLE .)
+    ELSE            reduce using rule 10 (expression -> VARIABLE .)
 
 
 state 7
 
     (1) expression -> ZERO .
 
+    CLOSEPARENTHESIS reduce using rule 1 (expression -> ZERO .)
     ZERO            reduce using rule 1 (expression -> ZERO .)
     TRUE            reduce using rule 1 (expression -> ZERO .)
     FALSE           reduce using rule 1 (expression -> ZERO .)
@@ -199,30 +197,30 @@ state 7
     VARIABLE        reduce using rule 1 (expression -> ZERO .)
     BACKSLASH       reduce using rule 1 (expression -> ZERO .)
     $end            reduce using rule 1 (expression -> ZERO .)
+    2DOTS           reduce using rule 1 (expression -> ZERO .)
     THEN            reduce using rule 1 (expression -> ZERO .)
-    CLOSEPARENTHESIS reduce using rule 1 (expression -> ZERO .)
-    DOT             reduce using rule 1 (expression -> ZERO .)
     ELSE            reduce using rule 1 (expression -> ZERO .)
 
 
 state 8
 
-    (6) expression -> PRED . OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (7) expression -> PRED . OPENPARENTHESIS expression CLOSEPARENTHESIS
 
-    OPENPARENTHESIS shift and go to state 15
+    OPENPARENTHESIS shift and go to state 14
 
 
 state 9
 
-    (8) expression -> ISZERO . OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> ISZERO . OPENPARENTHESIS expression CLOSEPARENTHESIS
 
-    OPENPARENTHESIS shift and go to state 16
+    OPENPARENTHESIS shift and go to state 15
 
 
 state 10
 
     (2) expression -> TRUE .
 
+    CLOSEPARENTHESIS reduce using rule 2 (expression -> TRUE .)
     ZERO            reduce using rule 2 (expression -> TRUE .)
     TRUE            reduce using rule 2 (expression -> TRUE .)
     FALSE           reduce using rule 2 (expression -> TRUE .)
@@ -234,9 +232,8 @@ state 10
     VARIABLE        reduce using rule 2 (expression -> TRUE .)
     BACKSLASH       reduce using rule 2 (expression -> TRUE .)
     $end            reduce using rule 2 (expression -> TRUE .)
+    2DOTS           reduce using rule 2 (expression -> TRUE .)
     THEN            reduce using rule 2 (expression -> TRUE .)
-    CLOSEPARENTHESIS reduce using rule 2 (expression -> TRUE .)
-    DOT             reduce using rule 2 (expression -> TRUE .)
     ELSE            reduce using rule 2 (expression -> TRUE .)
 
 
@@ -248,12 +245,11 @@ state 11
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
@@ -266,29 +262,55 @@ state 11
     VARIABLE        shift and go to state 6
     BACKSLASH       shift and go to state 2
 
-    expression                     shift and go to state 17
+    expression                     shift and go to state 16
 
 state 12
 
-    (10) expression -> BACKSLASH VARIABLE . 2DOTS expression DOT expression
+    (11) expression -> BACKSLASH expression . 2DOTS funcionType DOT expression expression_values
 
-    2DOTS           shift and go to state 18
+    2DOTS           shift and go to state 17
 
 
 state 13
 
-    (7) expression -> SUCC OPENPARENTHESIS . expression CLOSEPARENTHESIS
+    (8) expression -> SUCC OPENPARENTHESIS . expression CLOSEPARENTHESIS
     (1) expression -> . ZERO
     (2) expression -> . TRUE
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
+
+    ZERO            shift and go to state 7
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 1
+    IF              shift and go to state 11
+    NUMBER          shift and go to state 5
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 3
+    ISZERO          shift and go to state 9
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expression                     shift and go to state 18
+
+state 14
+
+    (7) expression -> PRED OPENPARENTHESIS . expression CLOSEPARENTHESIS
+    (1) expression -> . ZERO
+    (2) expression -> . TRUE
+    (3) expression -> . FALSE
+    (4) expression -> . IF expression THEN expression ELSE expression
+    (5) expression -> . NUMBER
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
@@ -303,75 +325,19 @@ state 13
 
     expression                     shift and go to state 19
 
-state 14
-
-    (11) expression -> expression expression .
-    (11) expression -> expression . expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
-
-  ! shift/reduce conflict for ZERO resolved as shift
-  ! shift/reduce conflict for TRUE resolved as shift
-  ! shift/reduce conflict for FALSE resolved as shift
-  ! shift/reduce conflict for IF resolved as shift
-  ! shift/reduce conflict for NUMBER resolved as shift
-  ! shift/reduce conflict for PRED resolved as shift
-  ! shift/reduce conflict for SUCC resolved as shift
-  ! shift/reduce conflict for ISZERO resolved as shift
-  ! shift/reduce conflict for VARIABLE resolved as shift
-  ! shift/reduce conflict for BACKSLASH resolved as shift
-    $end            reduce using rule 11 (expression -> expression expression .)
-    THEN            reduce using rule 11 (expression -> expression expression .)
-    CLOSEPARENTHESIS reduce using rule 11 (expression -> expression expression .)
-    DOT             reduce using rule 11 (expression -> expression expression .)
-    ELSE            reduce using rule 11 (expression -> expression expression .)
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
-
-  ! ZERO            [ reduce using rule 11 (expression -> expression expression .) ]
-  ! TRUE            [ reduce using rule 11 (expression -> expression expression .) ]
-  ! FALSE           [ reduce using rule 11 (expression -> expression expression .) ]
-  ! IF              [ reduce using rule 11 (expression -> expression expression .) ]
-  ! NUMBER          [ reduce using rule 11 (expression -> expression expression .) ]
-  ! PRED            [ reduce using rule 11 (expression -> expression expression .) ]
-  ! SUCC            [ reduce using rule 11 (expression -> expression expression .) ]
-  ! ISZERO          [ reduce using rule 11 (expression -> expression expression .) ]
-  ! VARIABLE        [ reduce using rule 11 (expression -> expression expression .) ]
-  ! BACKSLASH       [ reduce using rule 11 (expression -> expression expression .) ]
-
-    expression                     shift and go to state 14
-
 state 15
 
-    (6) expression -> PRED OPENPARENTHESIS . expression CLOSEPARENTHESIS
+    (9) expression -> ISZERO OPENPARENTHESIS . expression CLOSEPARENTHESIS
     (1) expression -> . ZERO
     (2) expression -> . TRUE
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
@@ -388,181 +354,42 @@ state 15
 
 state 16
 
-    (8) expression -> ISZERO OPENPARENTHESIS . expression CLOSEPARENTHESIS
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (4) expression -> IF expression . THEN expression ELSE expression
 
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
+    THEN            shift and go to state 21
 
-    expression                     shift and go to state 21
 
 state 17
 
-    (4) expression -> IF expression . THEN expression ELSE expression
-    (11) expression -> expression . expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (11) expression -> BACKSLASH expression 2DOTS . funcionType DOT expression expression_values
+    (6) funcionType -> . TYPE
 
-    THEN            shift and go to state 22
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
+    TYPE            shift and go to state 23
 
-    expression                     shift and go to state 14
+    funcionType                    shift and go to state 22
 
 state 18
 
-    (10) expression -> BACKSLASH VARIABLE 2DOTS . expression DOT expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (8) expression -> SUCC OPENPARENTHESIS expression . CLOSEPARENTHESIS
 
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
+    CLOSEPARENTHESIS shift and go to state 24
 
-    expression                     shift and go to state 23
 
 state 19
 
-    (7) expression -> SUCC OPENPARENTHESIS expression . CLOSEPARENTHESIS
-    (11) expression -> expression . expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> PRED OPENPARENTHESIS expression . CLOSEPARENTHESIS
 
-    CLOSEPARENTHESIS shift and go to state 24
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
+    CLOSEPARENTHESIS shift and go to state 25
 
-    expression                     shift and go to state 14
 
 state 20
 
-    (6) expression -> PRED OPENPARENTHESIS expression . CLOSEPARENTHESIS
-    (11) expression -> expression . expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
-
-    CLOSEPARENTHESIS shift and go to state 25
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
-
-    expression                     shift and go to state 14
-
-state 21
-
-    (8) expression -> ISZERO OPENPARENTHESIS expression . CLOSEPARENTHESIS
-    (11) expression -> expression . expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (9) expression -> ISZERO OPENPARENTHESIS expression . CLOSEPARENTHESIS
 
     CLOSEPARENTHESIS shift and go to state 26
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
 
-    expression                     shift and go to state 14
 
-state 22
+state 21
 
     (4) expression -> IF expression THEN . expression ELSE expression
     (1) expression -> . ZERO
@@ -570,12 +397,11 @@ state 22
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
@@ -590,143 +416,103 @@ state 22
 
     expression                     shift and go to state 27
 
-state 23
+state 22
 
-    (10) expression -> BACKSLASH VARIABLE 2DOTS expression . DOT expression
-    (11) expression -> expression . expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (11) expression -> BACKSLASH expression 2DOTS funcionType . DOT expression expression_values
 
     DOT             shift and go to state 28
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
 
-    expression                     shift and go to state 14
+
+state 23
+
+    (6) funcionType -> TYPE .
+
+    DOT             reduce using rule 6 (funcionType -> TYPE .)
+
 
 state 24
 
-    (7) expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .
+    (8) expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .
 
-    ZERO            reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    TRUE            reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    FALSE           reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    IF              reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    NUMBER          reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    PRED            reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    SUCC            reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    ISZERO          reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    VARIABLE        reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    BACKSLASH       reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    $end            reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    THEN            reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    CLOSEPARENTHESIS reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    DOT             reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    ELSE            reduce using rule 7 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    CLOSEPARENTHESIS reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ZERO            reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    TRUE            reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    FALSE           reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    IF              reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    NUMBER          reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    PRED            reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    SUCC            reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ISZERO          reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    VARIABLE        reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    BACKSLASH       reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    $end            reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    2DOTS           reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    THEN            reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ELSE            reduce using rule 8 (expression -> SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS .)
 
 
 state 25
 
-    (6) expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .
+    (7) expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .
 
-    ZERO            reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    TRUE            reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    FALSE           reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    IF              reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    NUMBER          reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    PRED            reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    SUCC            reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    ISZERO          reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    VARIABLE        reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    BACKSLASH       reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    $end            reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    THEN            reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    CLOSEPARENTHESIS reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    DOT             reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    ELSE            reduce using rule 6 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    CLOSEPARENTHESIS reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ZERO            reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    TRUE            reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    FALSE           reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    IF              reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    NUMBER          reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    PRED            reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    SUCC            reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ISZERO          reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    VARIABLE        reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    BACKSLASH       reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    $end            reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    2DOTS           reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    THEN            reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ELSE            reduce using rule 7 (expression -> PRED OPENPARENTHESIS expression CLOSEPARENTHESIS .)
 
 
 state 26
 
-    (8) expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .
+    (9) expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .
 
-    ZERO            reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    TRUE            reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    FALSE           reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    IF              reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    NUMBER          reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    PRED            reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    SUCC            reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    ISZERO          reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    VARIABLE        reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    BACKSLASH       reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    $end            reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    THEN            reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    CLOSEPARENTHESIS reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    DOT             reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
-    ELSE            reduce using rule 8 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    CLOSEPARENTHESIS reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ZERO            reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    TRUE            reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    FALSE           reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    IF              reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    NUMBER          reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    PRED            reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    SUCC            reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ISZERO          reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    VARIABLE        reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    BACKSLASH       reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    $end            reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    2DOTS           reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    THEN            reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
+    ELSE            reduce using rule 9 (expression -> ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS .)
 
 
 state 27
 
     (4) expression -> IF expression THEN expression . ELSE expression
-    (11) expression -> expression . expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
 
     ELSE            shift and go to state 29
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
 
-    expression                     shift and go to state 14
 
 state 28
 
-    (10) expression -> BACKSLASH VARIABLE 2DOTS expression DOT . expression
+    (11) expression -> BACKSLASH expression 2DOTS funcionType DOT . expression expression_values
     (1) expression -> . ZERO
     (2) expression -> . TRUE
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
@@ -749,12 +535,11 @@ state 29
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
@@ -771,19 +556,19 @@ state 29
 
 state 30
 
-    (10) expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .
-    (11) expression -> expression . expression
+    (11) expression -> BACKSLASH expression 2DOTS funcionType DOT expression . expression_values
+    (12) expression_values -> . expression
+    (13) expression_values -> .
     (1) expression -> . ZERO
     (2) expression -> . TRUE
     (3) expression -> . FALSE
     (4) expression -> . IF expression THEN expression ELSE expression
     (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
+    (7) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (8) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (9) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
+    (10) expression -> . VARIABLE
+    (11) expression -> . BACKSLASH expression 2DOTS funcionType DOT expression expression_values
 
   ! shift/reduce conflict for ZERO resolved as shift
   ! shift/reduce conflict for TRUE resolved as shift
@@ -795,11 +580,11 @@ state 30
   ! shift/reduce conflict for ISZERO resolved as shift
   ! shift/reduce conflict for VARIABLE resolved as shift
   ! shift/reduce conflict for BACKSLASH resolved as shift
-    $end            reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .)
-    THEN            reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .)
-    CLOSEPARENTHESIS reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .)
-    DOT             reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .)
-    ELSE            reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .)
+    $end            reduce using rule 13 (expression_values -> .)
+    2DOTS           reduce using rule 13 (expression_values -> .)
+    THEN            reduce using rule 13 (expression_values -> .)
+    CLOSEPARENTHESIS reduce using rule 13 (expression_values -> .)
+    ELSE            reduce using rule 13 (expression_values -> .)
     ZERO            shift and go to state 7
     TRUE            shift and go to state 10
     FALSE           shift and go to state 1
@@ -811,86 +596,85 @@ state 30
     VARIABLE        shift and go to state 6
     BACKSLASH       shift and go to state 2
 
-  ! ZERO            [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! TRUE            [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! FALSE           [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! IF              [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! NUMBER          [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! PRED            [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! SUCC            [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! ISZERO          [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! VARIABLE        [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
-  ! BACKSLASH       [ reduce using rule 10 (expression -> BACKSLASH VARIABLE 2DOTS expression DOT expression .) ]
+  ! ZERO            [ reduce using rule 13 (expression_values -> .) ]
+  ! TRUE            [ reduce using rule 13 (expression_values -> .) ]
+  ! FALSE           [ reduce using rule 13 (expression_values -> .) ]
+  ! IF              [ reduce using rule 13 (expression_values -> .) ]
+  ! NUMBER          [ reduce using rule 13 (expression_values -> .) ]
+  ! PRED            [ reduce using rule 13 (expression_values -> .) ]
+  ! SUCC            [ reduce using rule 13 (expression_values -> .) ]
+  ! ISZERO          [ reduce using rule 13 (expression_values -> .) ]
+  ! VARIABLE        [ reduce using rule 13 (expression_values -> .) ]
+  ! BACKSLASH       [ reduce using rule 13 (expression_values -> .) ]
 
-    expression                     shift and go to state 14
+    expression                     shift and go to state 33
+    expression_values              shift and go to state 32
 
 state 31
 
     (4) expression -> IF expression THEN expression ELSE expression .
-    (11) expression -> expression . expression
-    (1) expression -> . ZERO
-    (2) expression -> . TRUE
-    (3) expression -> . FALSE
-    (4) expression -> . IF expression THEN expression ELSE expression
-    (5) expression -> . NUMBER
-    (6) expression -> . PRED OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (7) expression -> . SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (8) expression -> . ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS
-    (9) expression -> . VARIABLE
-    (10) expression -> . BACKSLASH VARIABLE 2DOTS expression DOT expression
-    (11) expression -> . expression expression
 
-  ! shift/reduce conflict for ZERO resolved as shift
-  ! shift/reduce conflict for TRUE resolved as shift
-  ! shift/reduce conflict for FALSE resolved as shift
-  ! shift/reduce conflict for IF resolved as shift
-  ! shift/reduce conflict for NUMBER resolved as shift
-  ! shift/reduce conflict for PRED resolved as shift
-  ! shift/reduce conflict for SUCC resolved as shift
-  ! shift/reduce conflict for ISZERO resolved as shift
-  ! shift/reduce conflict for VARIABLE resolved as shift
-  ! shift/reduce conflict for BACKSLASH resolved as shift
-    $end            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
-    THEN            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
     CLOSEPARENTHESIS reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
-    DOT             reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    ZERO            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    TRUE            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    FALSE           reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    IF              reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    NUMBER          reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    PRED            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    SUCC            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    ISZERO          reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    VARIABLE        reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    BACKSLASH       reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    $end            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    2DOTS           reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
+    THEN            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
     ELSE            reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .)
-    ZERO            shift and go to state 7
-    TRUE            shift and go to state 10
-    FALSE           shift and go to state 1
-    IF              shift and go to state 11
-    NUMBER          shift and go to state 5
-    PRED            shift and go to state 8
-    SUCC            shift and go to state 3
-    ISZERO          shift and go to state 9
-    VARIABLE        shift and go to state 6
-    BACKSLASH       shift and go to state 2
 
-  ! ZERO            [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! TRUE            [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! FALSE           [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! IF              [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! NUMBER          [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! PRED            [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! SUCC            [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! ISZERO          [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! VARIABLE        [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
-  ! BACKSLASH       [ reduce using rule 4 (expression -> IF expression THEN expression ELSE expression .) ]
 
-    expression                     shift and go to state 14
+state 32
+
+    (11) expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .
+
+    CLOSEPARENTHESIS reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    ZERO            reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    TRUE            reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    FALSE           reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    IF              reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    NUMBER          reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    PRED            reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    SUCC            reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    ISZERO          reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    VARIABLE        reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    BACKSLASH       reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    $end            reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    2DOTS           reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    THEN            reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+    ELSE            reduce using rule 11 (expression -> BACKSLASH expression 2DOTS funcionType DOT expression expression_values .)
+
+
+state 33
+
+    (12) expression_values -> expression .
+
+    ZERO            reduce using rule 12 (expression_values -> expression .)
+    TRUE            reduce using rule 12 (expression_values -> expression .)
+    FALSE           reduce using rule 12 (expression_values -> expression .)
+    IF              reduce using rule 12 (expression_values -> expression .)
+    NUMBER          reduce using rule 12 (expression_values -> expression .)
+    PRED            reduce using rule 12 (expression_values -> expression .)
+    SUCC            reduce using rule 12 (expression_values -> expression .)
+    ISZERO          reduce using rule 12 (expression_values -> expression .)
+    VARIABLE        reduce using rule 12 (expression_values -> expression .)
+    BACKSLASH       reduce using rule 12 (expression_values -> expression .)
+    $end            reduce using rule 12 (expression_values -> expression .)
+    2DOTS           reduce using rule 12 (expression_values -> expression .)
+    THEN            reduce using rule 12 (expression_values -> expression .)
+    CLOSEPARENTHESIS reduce using rule 12 (expression_values -> expression .)
+    ELSE            reduce using rule 12 (expression_values -> expression .)
+
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ZERO in state 14 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 14 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 14 resolved as shift
-WARNING: shift/reduce conflict for IF in state 14 resolved as shift
-WARNING: shift/reduce conflict for NUMBER in state 14 resolved as shift
-WARNING: shift/reduce conflict for PRED in state 14 resolved as shift
-WARNING: shift/reduce conflict for SUCC in state 14 resolved as shift
-WARNING: shift/reduce conflict for ISZERO in state 14 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 14 resolved as shift
-WARNING: shift/reduce conflict for BACKSLASH in state 14 resolved as shift
 WARNING: shift/reduce conflict for ZERO in state 30 resolved as shift
 WARNING: shift/reduce conflict for TRUE in state 30 resolved as shift
 WARNING: shift/reduce conflict for FALSE in state 30 resolved as shift
@@ -901,13 +685,3 @@ WARNING: shift/reduce conflict for SUCC in state 30 resolved as shift
 WARNING: shift/reduce conflict for ISZERO in state 30 resolved as shift
 WARNING: shift/reduce conflict for VARIABLE in state 30 resolved as shift
 WARNING: shift/reduce conflict for BACKSLASH in state 30 resolved as shift
-WARNING: shift/reduce conflict for ZERO in state 31 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 31 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 31 resolved as shift
-WARNING: shift/reduce conflict for IF in state 31 resolved as shift
-WARNING: shift/reduce conflict for NUMBER in state 31 resolved as shift
-WARNING: shift/reduce conflict for PRED in state 31 resolved as shift
-WARNING: shift/reduce conflict for SUCC in state 31 resolved as shift
-WARNING: shift/reduce conflict for ISZERO in state 31 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 31 resolved as shift
-WARNING: shift/reduce conflict for BACKSLASH in state 31 resolved as shift

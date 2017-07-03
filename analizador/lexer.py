@@ -37,8 +37,7 @@ tokens = (
     'SUCC',
     'PRED',
     'ISZERO',
-    'BOOL',
-    'NAT',
+    'TYPE',
     'ARROW',
 )
 
@@ -50,14 +49,12 @@ t_ELSE = r'else'
 t_ZERO = r'0'
 t_DOT = r'\.'
 t_BACKSLASH = r'\\'
-t_2DOTS = r'\:'
+t_2DOTS = r':'
 t_OPENPARENTHESIS = r'\('
 t_CLOSEPARENTHESIS = r'\)'
 t_SUCC = r'succ'
 t_PRED = r'pred'
 t_ISZERO = r'iszero'
-t_BOOL = r'Bool'
-t_NAT= r'Nat'
 t_ARROW = r'->'
 
 
@@ -70,6 +67,11 @@ def t_VARIABLE(t):
 def t_NUMBER(t):
 	r'[1-9]([0-9]*)'
 	t.value = int(t.value)
+	return t
+
+def t_TYPE(t):
+	r'Nat|Bool'
+	t.value = t.value
 	return t
 
 # Build the lexer

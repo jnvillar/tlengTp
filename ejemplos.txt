@@ -1,0 +1,18 @@
+(\x:Nat.succ(succ(x))) 3
+
+\x:Bool.if x then false else true
+
+\x:Nat.succ(0)							
+
+succ(succ(succ(0)))						
+
+\x:Nat.succ(x)
+
+if true then 1 else 0
+
+\x:Nat->Nat.x
+
+\x:Nat->Nat.\y:Nat.(\z:Bool.if z then x else 0)				Mal
+
+
+\x:Nat->Nat.\y:Nat.\z:Bool.if z then x else 0

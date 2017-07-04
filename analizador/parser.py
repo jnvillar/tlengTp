@@ -12,6 +12,7 @@ iden = lambda x: x
 
 ifs = lambda x,y,z: y if x else z
 
+debug = True
 
 def p_expression_zero(p):
     'expression : ZERO'
@@ -31,6 +32,7 @@ def p_expression_false(p):
 
 def p_expression_if_then_else(p):
     'expression : IF expression THEN expression ELSE expression'
+    if(debug): print('p_expression_if_then_else')
     e = Element()
     
     if (p[2].estaDefinido and p[4].estaDefinido and p[6].estaDefinido):
@@ -41,9 +43,9 @@ def p_expression_if_then_else(p):
         elif (p[6].error != None):
             e.error = p[2].error   
         else:        
-            if(p[2].tipo != 'Bool'):
+            if(str(p[2].tipo) != 'Bool'):
                 e.error = 'ERROR: El if debe tener una condicion'
-            if(p[4].tipo != p[6].tipo):
+            if(str(p[4].tipo) != str(p[6].tipo)):
                 e.error = 'ERROR: Las dos opciones del if deben tener el mismo tipo'
         if(e.error == None):    
             e.valor = ifs(p[2].valor, p[4].valor, p[6].valor)
@@ -63,18 +65,34 @@ def p_expression_number(p):
 
 
 def p_expression_type(p):
-    'funcionType : TYPE'
+    'funcionType : TYPE funcImg'
     e = Element()
-    e.tipo = p[1]
+    t = Tipo(p[1])
+    if (p[2].tipo != None):
+        t.img = p[2].tipo
+    e.tipo = t
+    p[0] = e
+
+def p_expression_type_img(p):
+    'funcImg : ARROW funcionType'
+    e = Element()
+    t = Tipo(p[2].tipo)
+    e.tipo = t
+    p[0] = e
+
+def p_expression_type_img_empty(p):
+    'funcImg : '
+    e = Element()
     p[0] = e
 
 def p_expression_pred(p):
     'expression : PRED OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    
+    if(debug): print('p_expression_pred')
+
     e = Element()
     e.hijo1 = p[3]
     if (p[3].estaDefinido):
-        if (p[3].tipo =='Nat'):
+        if (str(p[3].tipo) =='Nat'):
             e.valor = max(p[3].valor-1,0)
         else:
             e.error = "pred solo puede ser aplicada a naturales."
@@ -82,32 +100,37 @@ def p_expression_pred(p):
          e.valor = pred
          e.estaDefinido = False
     
-    e.tipo = 'Nat'
+    t = Tipo('Nat')
+    e.tipo = t
     p[0] = e
    
 def p_expression_succ(p):
     'expression : SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS'
+    if(debug): print('p_expression_succ')
     e = Element()
     e.hijo1 = p[3]
     if (p[3].estaDefinido):
-        if (p[3].tipo =='Nat'):
+        if (str(p[3].tipo) =='Nat'):
             e.valor = p[3].valor+1
+
         else:
             e.error = "succ solo puede ser aplicada a naturales."
     else:
          e.valor = s
          e.estaDefinido = False
     
-    e.tipo = 'Nat'
+    t = Tipo('Nat')
+    e.tipo = t
     p[0] = e
 
 
 def p_expression_is_zero(p): 
     'expression : ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS'
     e = Element()
-    e.tipo = 'Bool'
+    t = Tipo('Bool')
+    e.tipo = t
     if p[3].estaDefinido:
-        if (p[3].tipo =='Nat'):
+        if (str(p[3].tipo) =='Nat'):
             if(p[3].valor == 0):
                 e.valor = True
             else:
@@ -123,7 +146,8 @@ def p_expression_variable(p):
     'expression : VARIABLE'
     e = Element()
     e.valor = p[1]
-    e.tipo = 'Var'
+    t = Tipo('Var')
+    e.tipo = t
     e.estaDefinido = False
     p[0] = e
 
@@ -131,23 +155,27 @@ def p_expression_variable(p):
 
 def p_expression_lambda(p):
     'expression : BACKSLASH expression 2DOTS funcionType DOT expression'
+    if(debug): print('p_expression_lambda')
     e = Element()
-    e.tipo = 'Func'
     e.valor = iden
-    e.tipo = p[4].tipo + '->' + p[6].tipo
+    e.tipo = p[4].tipo
     e.hijo1 = p[6]
+    e.hijo2 = p[2]
     p[0] = e
 
     
 def p_expression_application(p):
     'expression :  OPENPARENTHESIS expression CLOSEPARENTHESIS expression_values'
+    if(debug): print('p_expression_application')
+
     e = Element()
-    e.tipo = 'Func'
+    t = Tipo('Func')
+    e.tipo = t
     if(p[4].valor == None):
         e.valor = iden
     else:
         e.valor = p[2].evaluate(p[4].valor)
-    e.tipo = p[2].tipo.split('->')[1] 
+    e.tipo = p[2].tipo
     e.hijo1 = p[2]
     p[0] = e
 
@@ -187,14 +215,15 @@ class Element(object):
         if(self.error != None):
             return str(self.error)
         if(self.valor == s):
-            return 'succ('+str(self.hijo1)+'):'
+            return 'succ('+str(self.hijo1)+')'
         elif(self.valor == pred):
             return 'pred('+str(self.hijo1)+')'
         elif(self.valor == iden):
-            tipo_aux = self.tipo.split('->')[0]
-            return '\\x:'+ tipo_aux +'.'+str(self.hijo1)
+            return '\\'+str(self.hijo2)+':'+ str(self.tipo) +'.'+str(self.hijo1)
         elif(self.valor == ifs):
             return 'if '+str(self.hijo1)+' then '+str(self.hijo2)+' else '+str(self.hijo3)
+        elif(str(self.tipo) == 'Nat'):
+            return imprimirNat(self.valor)
         return str(self.valor).lower()
 
     def evaluate(self, valor):
@@ -203,10 +232,23 @@ class Element(object):
         return self.valor(valor)
     
 
+class Tipo(object):
+    def __init__(self, dom, img = None):
+        self.dom = dom
+        self.img = img
+
+    def __str__(self):
+        if (self.img == None):
+            return str(self.dom)    
+        else:
+            return str(self.dom)+'->'+str(self.img)
 
 def esFuncion(e):
     return e.valor == s or e.valor == pred
 
-
-
+def imprimirNat(v):
+    res = '0'
+    for i in range(0,v):
+        res = 'succ('+res+')'
+    return res
 		

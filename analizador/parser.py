@@ -178,7 +178,7 @@ def p_expression_application(p):
             e.error = p[2].error
         elif (p[4].error != None):
             e.error = p[2].error  
-        else:        
+        else:
             if(p[2].tipo.img == None or str(p[2].tipo.dom) != str(p[2].tipo)):
                 e.error = 'ERROR: La parte izquierda de la aplicacion (' + str(p[2]) + ') no es una funcion con dominio en ' + str(p[4].tipo)
         if(e.error == None):
@@ -189,6 +189,7 @@ def p_expression_application(p):
     if(p[4].estaDefinido and p[4].valor == None):
         e.valor = iden
         e.tipo = p[2].tipo
+    p[0] = e
 
 
 def p_expression_values(p):

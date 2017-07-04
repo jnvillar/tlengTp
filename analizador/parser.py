@@ -1,5 +1,6 @@
 """Parser LR(1) del tp."""
 import ply.yacc as yacc
+import sys
 from .lexer import tokens
 
 precedence = []
@@ -9,6 +10,8 @@ s = lambda x: x+1
 pred = lambda x: max(0,x-1)
 
 iden = lambda x: x
+
+app = lambda x,y: x(y)
 
 ifs = lambda x,y,z: y if x else z
 
@@ -95,7 +98,7 @@ def p_expression_pred(p):
         if (str(p[3].tipo) =='Nat'):
             e.valor = max(p[3].valor-1,0)
         else:
-            e.error = "pred solo puede ser aplicada a naturales."
+            e.error = "ERROR: pred espera un valor de tipo Nat"
     else:
          e.valor = pred
          e.estaDefinido = False
@@ -114,7 +117,7 @@ def p_expression_succ(p):
             e.valor = p[3].valor+1
 
         else:
-            e.error = "succ solo puede ser aplicada a naturales."
+            e.error = "ERROR: succ espera un valor de tipo Nat"
     else:
          e.valor = s
          e.estaDefinido = False
@@ -136,7 +139,7 @@ def p_expression_is_zero(p):
             else:
                 e.valor = False
         else:
-            e.error = "iszero solo puede ser aplicada a naturales."    
+            e.error = "ERROR: iszero espera un valor de tipo Nat"
     else:
         e.valor = False
         e.estaDefinido = False
@@ -158,7 +161,7 @@ def p_expression_lambda(p):
     if(debug): print('p_expression_lambda')
     e = Element()
     e.valor = iden
-    e.tipo = p[4].tipo
+    e.tipo = Tipo(p[4].tipo,p[6].tipo)
     e.hijo1 = p[6]
     e.hijo2 = p[2]
     p[0] = e
@@ -169,15 +172,23 @@ def p_expression_application(p):
     if(debug): print('p_expression_application')
 
     e = Element()
-    t = Tipo('Func')
-    e.tipo = t
-    if(p[4].valor == None):
+    if (p[2].estaDefinido and p[4].estaDefinido):
+        if(debug): print('3')
+        if (p[2].error != None):
+            e.error = p[2].error
+        elif (p[4].error != None):
+            e.error = p[2].error  
+        else:        
+            if(p[2].tipo.img == None or str(p[2].tipo.dom) != str(p[2].tipo)):
+                e.error = 'ERROR: La parte izquierda de la aplicacion (' + str(p[2]) + ') no es una funcion con dominio en ' + str(p[4].tipo)
+        if(e.error == None):
+            if(debug): print('1')  
+            e.valor = p[2].evaluate(p[4].valor)
+            e.tipo.dom = p[2].tipo.img.dom
+            e.tipo.img = p[2].tipo.img.img
+    if(p[4].estaDefinido and p[4].valor == None):
         e.valor = iden
-    else:
-        e.valor = p[2].evaluate(p[4].valor)
-    e.tipo = p[2].tipo
-    e.hijo1 = p[2]
-    p[0] = e
+        e.tipo = p[2].tipo
 
 
 def p_expression_values(p):
@@ -204,7 +215,7 @@ def apply_parser(str):
 class Element(object):
     def __init__(self, valor=None, tipo=None, hijo1=None):
         self.valor = valor
-        self.tipo = tipo
+        self.tipo = Tipo(tipo)
         self.hijo1 = hijo1
         self.estaDefinido = True
         self.hijo2 = None
@@ -213,7 +224,8 @@ class Element(object):
 
     def __str__(self):
         if(self.error != None):
-            return str(self.error)
+            print >>sys.stderr, str(self.error)
+            return ""
         if(self.valor == s):
             return 'succ('+str(self.hijo1)+')'
         elif(self.valor == pred):
@@ -250,5 +262,5 @@ def imprimirNat(v):
     res = '0'
     for i in range(0,v):
         res = 'succ('+res+')'
-    return res
+    return res  
 		

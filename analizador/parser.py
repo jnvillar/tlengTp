@@ -6,22 +6,16 @@ from .lexer import tokens
 precedence = []
 
 s = lambda x: x+1
-
 pred = lambda x: max(0,x-1)
-
 iden = lambda x: x
-
 app = lambda x,y: x(y)
-
 ifs = lambda x,y,z: y if x else z
-
 debug = True
 
 def p_expression_zero(p):
     'expression : ZERO'
     e = Element(0,'Nat')
     p[0] = e
-
 
 def p_expression_true(p):
 	'expression : TRUE'
@@ -65,7 +59,6 @@ def p_expression_number(p):
     'expression : NUMBER'
     e = Element(p[1],'Nat')
     p[0] = e
-
 
 def p_expression_type(p):
     'funcionType : TYPE funcImg'
@@ -152,20 +145,25 @@ def p_expression_variable(p):
     t = Tipo('Var')
     e.tipo = t
     e.estaDefinido = False
+    e.error = "El termino no es cerrado (" + p[1] + " esta libre)"
     p[0] = e
-
-
 
 def p_expression_lambda(p):
     'expression : BACKSLASH expression 2DOTS funcionType DOT expression'
     if(debug): print('p_expression_lambda')
     e = Element()
+    img = p[4].tipo.dom
+    if(p[4].tipo.img != None):
+        img = p[4].tipo.img
+    if(img != p[6].tipo.dom and p[6].estaDefinido):
+        e.error = 'ERROR: func espera un valor de tipo '+p[6].tipo.dom
+    
     e.valor = iden
-    e.tipo = Tipo(p[4].tipo,p[6].tipo)
+    t = Tipo(p[4].tipo, p[6].tipo)
+    e.tipo = t    
     e.hijo1 = p[6]
     e.hijo2 = p[2]
     p[0] = e
-
     
 def p_expression_application(p):
     'expression :  OPENPARENTHESIS expression CLOSEPARENTHESIS expression_values'
@@ -191,7 +189,6 @@ def p_expression_application(p):
         e.tipo = p[2].tipo
     p[0] = e
 
-
 def p_expression_values(p):
     'expression_values : expression'
     p[0] = p[1]
@@ -211,12 +208,10 @@ parser = yacc.yacc(debug=True)
 def apply_parser(str):
     return parser.parse(str)
 
-
-
 class Element(object):
     def __init__(self, valor=None, tipo=None, hijo1=None):
         self.valor = valor
-        self.tipo = Tipo(tipo)
+        self.tipo = tipo
         self.hijo1 = hijo1
         self.estaDefinido = True
         self.hijo2 = None
@@ -232,7 +227,7 @@ class Element(object):
         elif(self.valor == pred):
             return 'pred('+str(self.hijo1)+')'
         elif(self.valor == iden):
-            return '\\'+str(self.hijo2)+':'+ str(self.tipo) +'.'+str(self.hijo1)
+            return '\\'+str(self.hijo2)+':'+ str(self.tipo.dom) +'.'+str(self.hijo1)
         elif(self.valor == ifs):
             return 'if '+str(self.hijo1)+' then '+str(self.hijo2)+' else '+str(self.hijo3)
         elif(str(self.tipo) == 'Nat'):
@@ -243,7 +238,6 @@ class Element(object):
         if(self.hijo1 != None and esFuncion(self.hijo1)):
             return self.valor(self.hijo1.evaluate(valor))
         return self.valor(valor)
-    
 
 class Tipo(object):
     def __init__(self, dom, img = None):

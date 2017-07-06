@@ -8,6 +8,7 @@ precedence = []
 s = lambda x: x+1
 pred = lambda x: max(0,x-1)
 iden = lambda x: x
+iden2 = lambda x: x
 app = lambda x,y: x(y)
 ifs = lambda x,y,z: y if x else z
 debug = True
@@ -52,6 +53,7 @@ def p_expression_if_then_else(p):
         e.hijo1 = p[2]
         e.hijo2 = p[4]
         e.hijo3 = p[6]
+
 
     p[0] = e
 
@@ -145,7 +147,7 @@ def p_expression_variable(p):
     t = Tipo('Var')
     e.tipo = t
     e.estaDefinido = False
-    e.error = "El termino no es cerrado (" + p[1] + " esta libre)"
+    #e.error = "El termino no es cerrado (" + p[1] + " esta libre)"
     p[0] = e
 
 def p_expression_lambda(p):
@@ -155,8 +157,8 @@ def p_expression_lambda(p):
     img = p[4].tipo.dom
     if(p[4].tipo.img != None):
         img = p[4].tipo.img
-    if(img != p[6].tipo.dom and p[6].estaDefinido):
-        e.error = 'ERROR: func espera un valor de tipo '+p[6].tipo.dom
+    #if(p[6].estaDefinido and img != p[6].tipo.dom ):
+    #    e.error = 'ERROR: func espera un valor de tipo '+p[6].tipo.dom
     
     e.valor = iden
     t = Tipo(p[4].tipo, p[6].tipo)
@@ -171,31 +173,38 @@ def p_expression_application(p):
 
     e = Element()
     if (p[2].estaDefinido and p[4].estaDefinido):
-        if(debug): print('3')
         if (p[2].error != None):
             e.error = p[2].error
         elif (p[4].error != None):
             e.error = p[2].error  
         else:
             if(p[2].tipo.img == None or str(p[2].tipo.dom) != str(p[2].tipo)):
-                e.error = 'ERROR: La parte izquierda de la aplicacion (' + str(p[2]) + ') no es una funcion con dominio en ' + str(p[4].tipo)
+                a = 0
+                #e.error = 'ERROR: La parte izquierda de la aplicacion (' + str(p[2]) + ') no es una funcion con dominio en ' + str(p[4].tipo)
         if(e.error == None):
-            if(debug): print('1')  
             e.valor = p[2].evaluate(p[4].valor)
-            e.tipo.dom = p[2].tipo.img.dom
-            e.tipo.img = p[2].tipo.img.img
-    if(p[4].estaDefinido and p[4].valor == None):
-        e.valor = iden
-        e.tipo = p[2].tipo
+            t = Tipo(p[2].tipo.img)
+            e.tipo = t
+    else:
+        e.valor = iden2
+        e.hijo1 = p[2]
+        e.hijo2 = p[4]
+    #if(p[4].estaDefinido and p[4].valor == None):
+    #    e.valor = iden
+    #    e.tipo = p[2].tipo
+    
     p[0] = e
 
 def p_expression_values(p):
     'expression_values : expression'
+    if(debug): print('p_expression_values')
     p[0] = p[1]
 
 def p_expression_values_empty(p):
     'expression_values : '
+    if(debug): print('p_expression_values_empty')
     e = Element()
+    e.estaDefinido = False
     p[0] = e
     pass
 
@@ -230,8 +239,12 @@ class Element(object):
             return '\\'+str(self.hijo2)+':'+ str(self.tipo.dom) +'.'+str(self.hijo1)
         elif(self.valor == ifs):
             return 'if '+str(self.hijo1)+' then '+str(self.hijo2)+' else '+str(self.hijo3)
+        elif(self.valor == iden2):
+            return '('+str(self.hijo1)+') '+str(self.hijo2)
         elif(str(self.tipo) == 'Nat'):
             return imprimirNat(self.valor)
+        elif(str(self.tipo) == 'None'):
+            return ''
         return str(self.valor).lower()
 
     def evaluate(self, valor):

@@ -35,14 +35,36 @@ class Element(object):
             return '('+str(self.hijo1)+') '+str(self.hijo2)
         elif(str(self.tipo) == 'Nat'):
             return imprimirNat(self.valor)
-        elif(str(self.tipo) == 'None'):
+        elif(str(self.tipo) == 'nada'):
             return ''
         return str(self.valor).lower()
 
-    def evaluate(self, valor):
-        if(self.hijo1 != None and esFuncion(self.hijo1)):
-            return self.valor(self.hijo1.evaluate(valor))
-        return self.valor(valor)
+    def evaluate(self, valor, var):
+        # if(self.hijo1 != None and self.hijo1.valor == var):
+        #     e = Element(valor)
+        #     t = Tipo('Nat')
+        #     e.tipo = t
+        #     self.hijo1 = e
+        # if(self.estaDefinido):
+        #     return self.valor
+        # if(self.hijo1 != None and esFuncion(self.hijo1)):
+        #     return self.valor(self.hijo1.evaluate(valor, var))
+        # if(self.hijo1 != None):
+        #     valHijo = self.hijo1.evaluate(valor, var)
+        #     if(type(valHijo) is str):
+        #         return self.valor
+        #     return self.valor(self.hijo1.evaluate(valor, var))
+        # return self.valor(valor)
+
+        if(self.hijo1 != None and self.hijo1.valor == var):
+            e = Element(valor)
+            t = Tipo('Nat')
+            e.tipo = t
+            self.hijo1 = e
+        elif(self.hijo1 != None):
+            self.hijo1.evaluate(valor,var)
+
+
 
 class Tipo(object):
     def __init__(self, dom, img = None):

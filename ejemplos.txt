@@ -20,7 +20,16 @@ if true then 1 else 0
 \x:Nat->Nat.\y:Nat.\z:Bool.if z then x else 0
 
 
+(\x:Nat.\y:Nat.y) 3
 
-\x:Nat->Nat.\y:Nat.(\z:Bool.if z then x y else 0)		MAL
+(\x:Nat.\y:Nat.succ(x)) 3
 
-\x:Nat->Nat.\y:Nat.(\z:Bool.if z then x y else 0) (\j:Nat.succ(j)) 8 true		MAL
+No acepta:
+
+\x:Nat->Nat.\y:Nat.(\z:Bool.if z then x y else 0)		
+
+\x:Nat->Nat.\y:Nat.(\z:Bool.if z then x y else 0) (\j:Nat.succ(j)) 8 true
+
+
+
+

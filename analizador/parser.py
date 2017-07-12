@@ -165,82 +165,20 @@ def p_expression_is_zero(p):
 
 def p_expression_variable(p):
     'expression : VARIABLE'
-    e = Element()
-    e.valor = p[1]
-    t = Tipo('Var')
-    e.tipo = t
-    e.estaDefinido = False
-    #e.error = "El termino no es cerrado (" + p[1] + " esta libre)"
-    p[0] = e
+    p[0] = VarExpr(p[1])
+
 
 def p_expression_lambda(p):
     'expression : BACKSLASH expression 2DOTS funcionType DOT expression %prec LAMBDA'
     if(debug): print('p_expression_lambda')
-    e = Element()
-    img = p[4].tipo.dom
-    if(p[4].tipo.img != None):
-        img = p[4].tipo.img
-    #if(p[6].estaDefinido and img != p[6].tipo.dom ):
-    #    e.error = 'ERROR: func espera un valor de tipo '+p[6].tipo.dom
+    p[0] = LambdaExpr(p[2], p[4], p[6])
     
-    e.valor = iden
-    t = Tipo(p[4].tipo, p[6].tipo)
-    if(p[6].tipo.dom == 'Var'):
-    	t.img = t.dom
-    e.tipo = t    
-    e.hijo1 = p[6]
-    e.hijo2 = p[2]
-    e.estaDefinido = p[6].estaDefinido
-    p[0] = e
     
 def p_expression_application(p):
     'expression :  OPENPARENTHESIS expression CLOSEPARENTHESIS'
     if(debug): print('p_expression_application')
+    p[0] = p[2]
 
-    # e = Element()
-    # if (p[2].estaDefinido and p[4].estaDefinido):
-    #     if (p[2].error != None):
-    #         e.error = p[2].error
-    #     elif (p[4].error != None):
-    #         e.error = p[2].error  
-    #     else:
-    #         if(p[2].tipo.img == None or str(p[2].tipo.dom) != str(p[2].tipo)):
-    #             a = 0
-    #             #e.error = 'ERROR: La parte izquierda de la aplicacion (' + str(p[2]) + ') no es una funcion con dominio en ' + str(p[4].tipo)
-    #     if(e.error == None):
-    #         e.valor = p[2].evaluate(p[4].valor)
-    #         t = Tipo(p[2].tipo.img)
-    #         e.tipo = t
-    # else:
-    #     e.valor = iden2
-    #     e.hijo1 = p[2]
-    #     e.hijo2 = p[4]
-    # #if(p[4].estaDefinido and p[4].valor == None):
-    # #    e.valor = iden
-    # #    e.tipo = p[2].tipo
-
-    # e = Element()
-
-    # if (p[4].tipo != None and p[4].tipo.dom == "nada"):
-    #     e.valor = iden2
-    #     e.hijo1 = p[2]
-    #     e.hijo2 = p[4]
-    # else:
-    #     e.valor = p[2].evaluate(p[4].valor, p[2].hijo2.valor)
-    #     t = Tipo(p[2].tipo.img)
-    #     e.tipo = t
-
-
-    e = Element()
-    if (p[4].tipo.dom == "nada"):
-        e.valor = iden2
-        e.hijo1 = p[2]
-        e.hijo2 = p[4]
-    else:
-        e = p[2].hijo1
-        e.evaluate(p[4].valor, p[2].hijo2.valor)
-    e.tipo = p[2].tipo
-    p[0] = e
 
 def p_expression_values(p):
     'expression_values : expression'
@@ -260,6 +198,7 @@ def p_expression_values_empty(p):
 def p_expression_application_function(p):
     'expression :  expression expression %prec APP'
     if(debug): print('p_expression_application_function')
+    p[0] = AppExpr(p[1],p[2])
     
 
 def p_error(p):

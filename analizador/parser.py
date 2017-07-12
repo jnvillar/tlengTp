@@ -4,7 +4,11 @@ import sys
 from .lexer import tokens
 from model import *
 
-precedence = []
+precedence = [ 
+('left', 'LAMBDA'), 
+('left', 'IF'),
+('left', 'APP'),
+               ]
 
 
 debug = True
@@ -25,13 +29,20 @@ def p_expression_true(p):
 
 def p_expression_false(p):
 	'expression : FALSE'
+	#p[0] = BoolExpr(False)
+
 	e = Element(False)
 	t = Tipo('Bool')
 	e.tipo = t
 	p[0] = e
 
 def p_expression_if_then_else(p):
-    'expression : IF expression THEN expression ELSE expression'
+    'expression : IF expression THEN expression ELSE expression %prec IF'
+
+    #p[0] = IfExpression(p[2], p[4], p[6])
+
+
+
     if(debug): print('p_expression_if_then_else')
     e = Element()
     if(p[4].tipo.dom != 'Var'):
@@ -71,6 +82,7 @@ def p_expression_number(p):
     t = Tipo('Nat')
     e.tipo = t
     p[0] = e
+
 
 def p_expression_type(p):
     'funcionType : TYPE funcImg'
@@ -162,7 +174,7 @@ def p_expression_variable(p):
     p[0] = e
 
 def p_expression_lambda(p):
-    'expression : BACKSLASH expression 2DOTS funcionType DOT expression'
+    'expression : BACKSLASH expression 2DOTS funcionType DOT expression %prec LAMBDA'
     if(debug): print('p_expression_lambda')
     e = Element()
     img = p[4].tipo.dom
@@ -182,7 +194,7 @@ def p_expression_lambda(p):
     p[0] = e
     
 def p_expression_application(p):
-    'expression :  OPENPARENTHESIS expression CLOSEPARENTHESIS expression_values'
+    'expression :  OPENPARENTHESIS expression CLOSEPARENTHESIS'
     if(debug): print('p_expression_application')
 
     # e = Element()
@@ -246,9 +258,9 @@ def p_expression_values_empty(p):
     pass
 
 def p_expression_application_function(p):
-    'expression :  expression expression'
+    'expression :  expression expression %prec APP'
     if(debug): print('p_expression_application_function')
-    p[0] = p[1]
+    
 
 def p_error(p):
     parser.restart()

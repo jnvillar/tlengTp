@@ -1,30 +1,33 @@
-import Tipo
+from Tipo import *
+
 
 class IsZeroExpr(object):
-	def __init__(object):
-		if(object.getType() != "Nat"):
-			raise Exception("No es un Nat")
+    def __init__(self, object):
+        self.value = object.getValue()
+        self.type = Tipo("Bool")
 
-		self.value = object.getValue()
-		self.type = Tipo("Bool")
 
 def __str__(self):
-	res = "IsZero("
-		for it in range(self.value):
-			res = res + "succ("
+    res = "IsZero("
+    for it in range(self.value):
+        res = res + "succ("
 
-		res = res + "0"
+    res = res + "0"
 
-		for x in range(self.value):
-			res = res + ")"
+    for x in range(self.value):
+        res = res + ")"
 
-		res = res + ")"
+    res = res + ")"
+    print res
 
-def evaluate(self,context):
-	return self.value==0
+
+def evaluate(self, context):
+    return self.value == 0
+
 
 def getType(self):
-	return self.type
+    return self.type
+
 
 def getValue(self):
-	return self.value==0
+    return self.value == 0

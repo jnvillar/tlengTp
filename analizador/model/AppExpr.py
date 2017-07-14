@@ -3,19 +3,20 @@ class AppExpr(object):
         self.expr1 = expr1
         self.expr2 = expr2
         self.expr = expr
-        self.tipo= None
+        self.tipo = None
+
+        # def __str__(self):
+        #     return '\\'+str(self.var)+':'+ str(self.tipo) +'.'+str(self.expr)
 
 
-    # def __str__(self):
-    #     return '\\'+str(self.var)+':'+ str(self.tipo) +'.'+str(self.expr)
+        def evaluar(self, context):
+            return toStr(self)
 
-
-	def evaluar(self, context):
-		return toStr(self)
-
-	def tipar(self, context):
-		if self.expr1.tipar(context).dom !=  self.expr1.tipar(context).img
-			raise Exception("La parte izquierda de la aplicación no es una función con dominio en " + self.expr1.tipar(context).img)
-		else:
-			self.tipo = self.expr1.tipar(context).img
-			return self.tipo
+        def tipar(self, context):
+            if self.expr1.tipar(context).dom != self.expr1.tipar(context).img
+                raise Exception(
+                    "La parte izquierda de la aplicación no es una función con dominio en " + self.expr1.tipar(
+                        context).img)
+            else:
+                self.tipo = self.expr1.tipar(context).img
+                return self.tipo

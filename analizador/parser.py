@@ -2,17 +2,19 @@
 import ply.yacc as yacc
 import sys
 from .lexer import tokens
-from model import *
-
-precedence = [ 
-('left', 'LAMBDA'), 
-('left', 'IF'),
-('left', 'APP'),
-               ]
+from .model import *
 
 
-debug = True
 
+
+precedence = [
+    ('left', 'LAMBDA'),
+    ('left', 'IF'),
+    ('left', 'APP'),
+]
+
+
+'''
 def p_expression_zero(p):
     'expression : ZERO'
     e = Element(0)
@@ -200,6 +202,39 @@ def p_expression_application_function(p):
     if(debug): print('p_expression_application_function')
     p[0] = AppExpr(p[1],p[2])
     
+'''
+
+def p_expression_true(p):
+    'expression : TRUE'
+    p[0] = BooleanExpr(True)
+
+def p_expression_false(p):
+    'expression : FALSE'
+    p[0] = BooleanExpr(False)
+
+def p_expression_if_then_else(p):
+    'expression : IF expression THEN expression ELSE expression %prec IF'
+    p[0] = IfExpr(p[2], p[4], p[6])
+
+def p_expression_is_zero(p):
+    'expression : ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS'
+    p[0] = IsZeroExpr(p[3])
+
+def p_expression_number(p):
+    'expression : NUMBER'
+    p[0] = NatExpr(p[1])
+
+def p_expression_pred(p):
+    'expression : PRED OPENPARENTHESIS expression CLOSEPARENTHESIS'
+    p[0] = PredExpr(p[3])
+
+def p_expression_succ(p):
+    'expression : SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS'
+    p[0] = SuccExpr(p[3])
+
+def p_expression_zero(p):
+    'expression : ZERO'
+    p[0] = ZeroExpr()
 
 def p_error(p):
     parser.restart()

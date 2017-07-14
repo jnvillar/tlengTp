@@ -1,32 +1,33 @@
 import Tipo
 
+
 class PredExpr(object):
-	def __init__(object):
+    def __init__(object):
 
-		if(object.getType() != "Nat"):
-			raise Exception("No es un Nat")
+        if (object.getType() != "Nat"):
+            raise Exception("No es un Nat")
 
-		self.value = object.value
-		self.type = Tipo("Nat")
+        self.value = object.value
+        self.type = Tipo("Nat")
 
-	def __str__(self):
+    def __str__(self):
 
-		res = "pred("
-		for it in range(self.value):
-			res = res + "succ("
-		
-		res = res + "0"
+        res = "pred("
+        for it in range(self.value):
+            res = res + "succ("
 
-		for x in range(self.value):
-			res = res + ")"
+        res = res + "0"
 
-		res = res + ")"
+        for x in range(self.value):
+            res = res + ")"
 
-	def evaluate(self,context):
-		return max(0,self.value-1)
+        res = res + ")"
 
-	def getType(self):
-		return self.type
+    def evaluate(self, context):
+        return max(0, self.value - 1)
 
-	def getValue(self):
-		return self.value
+    def getType(self):
+        return self.type
+
+    def getValue(self):
+        return self.value

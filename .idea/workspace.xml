@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be21b003-9c2a-4b60-a9ab-0c6c8443cceb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Nat.0" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/analizador/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/analizador/functions/Expr.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/analizador/functions/p_expression_is_zero.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/analizador/functions/p_expression_number.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/analizador/functions/p_expression_pred.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/analizador/functions/p_expression_succ.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/analizador/functions/p_expression_zero.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ejemplos.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/get-pip.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/analizador/models/BooleanExpr.py" afterPath="$PROJECT_DIR$/analizador/model/BooleanExpr.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/analizador/models/IfExpr.py" afterPath="$PROJECT_DIR$/analizador/model/IfExpr.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/analizador/models/Tipo.py" afterPath="$PROJECT_DIR$/analizador/model/Tipo.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/analizador/model.py" afterPath="$PROJECT_DIR$/analizador/model/oldModels.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/AppExpr.py" afterPath="$PROJECT_DIR$/analizador/model/AppExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/IsZeroExpr.py" afterPath="$PROJECT_DIR$/analizador/model/IsZeroExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/LambdaExpr.py" afterPath="$PROJECT_DIR$/analizador/model/LambdaExpr.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/BooleanExpr.py" afterPath="$PROJECT_DIR$/analizador/model/BooleanExpr.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/IfExpr.py" afterPath="$PROJECT_DIR$/analizador/model/IfExpr.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/NatExpr.py" afterPath="$PROJECT_DIR$/analizador/model/NatExpr.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/PredExpr.py" afterPath="$PROJECT_DIR$/analizador/model/PredExpr.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/SuccExpr.py" afterPath="$PROJECT_DIR$/analizador/model/SuccExpr.py" />
@@ -25,6 +14,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/ZeroExpr.py" afterPath="$PROJECT_DIR$/analizador/model/ZeroExpr.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/parser.out" afterPath="$PROJECT_DIR$/analizador/parser.out" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/parser.py" afterPath="$PROJECT_DIR$/analizador/parser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/parsetab.py" afterPath="$PROJECT_DIR$/analizador/parsetab.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,41 +26,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AppExpr.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analizador/model/AppExpr.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analizador/model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lexer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analizador/lexer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-102">
-              <caret line="26" column="11" lean-forward="false" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="parser.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="parser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analizador/parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-161">
-              <caret line="204" column="3" lean-forward="false" selection-start-line="204" selection-start-column="3" selection-end-line="204" selection-end-column="3" />
+            <state relative-caret-position="374">
+              <caret line="243" column="26" lean-forward="false" selection-start-line="243" selection-start-column="19" selection-end-line="243" selection-end-column="26" />
               <folding>
                 <element signature="e#27#50#0" expanded="true" />
               </folding>
@@ -78,34 +38,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IsZeroExpr.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analizador/model/IsZeroExpr.py">
+      <file leaf-file-name="SuccExpr.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/analizador/model/SuccExpr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BooleanExpr.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analizador/model/BooleanExpr.py">
+      <file leaf-file-name="PredExpr.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/analizador/model/PredExpr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="288">
+              <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analizador/__init__.py">
+      <file leaf-file-name="NatExpr.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/analizador/model/NatExpr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding>
-                <element signature="e#17#54#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="54">
+              <caret line="3" column="22" lean-forward="true" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -113,28 +71,18 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="144">
+              <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="parsetab.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analizador/parsetab.py">
+      <file leaf-file-name="VarExpr.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/analizador/model/VarExpr.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -149,30 +97,43 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>expression</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>expr</replace>
+    </replaceStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/analizador/model/ZeroExpr.py" />
-        <option value="$PROJECT_DIR$/analizador/model/VarExpr.py" />
         <option value="$PROJECT_DIR$/analizador/model/Tipo.py" />
-        <option value="$PROJECT_DIR$/analizador/model/SuccExpr.py" />
-        <option value="$PROJECT_DIR$/analizador/model/PredExpr.py" />
-        <option value="$PROJECT_DIR$/analizador/model/NatExpr.py" />
         <option value="$PROJECT_DIR$/analizador/model/LambdaExpr.py" />
-        <option value="$PROJECT_DIR$/analizador/model/AppExpr.py" />
         <option value="$PROJECT_DIR$/analizador/functions/p_expression_is_zero.py" />
         <option value="$PROJECT_DIR$/analizador/functions/p_expression_number.py" />
         <option value="$PROJECT_DIR$/analizador/functions/p_expression_pred.py" />
         <option value="$PROJECT_DIR$/analizador/functions/p_expression_succ.py" />
         <option value="$PROJECT_DIR$/analizador/functions/p_expression_zero.py" />
         <option value="$PROJECT_DIR$/analizador/functions/Expr.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/analizador/__init__.py" />
         <option value="$PROJECT_DIR$/analizador/model/IsZeroExpr.py" />
+        <option value="$PROJECT_DIR$/analizador/model/IfExpr.py" />
+        <option value="$PROJECT_DIR$/analizador/model/__init__.py" />
+        <option value="$PROJECT_DIR$/analizador/model/VarExpr.py" />
+        <option value="$PROJECT_DIR$/analizador/models.py" />
+        <option value="$PROJECT_DIR$/analizador/model/AppExpr.py" />
+        <option value="$PROJECT_DIR$/analizador/model/BooleanExpr.py" />
+        <option value="$PROJECT_DIR$/analizador/model/SuccExpr.py" />
+        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/analizador/parser.py" />
+        <option value="$PROJECT_DIR$/analizador/model/ZeroExpr.py" />
+        <option value="$PROJECT_DIR$/analizador/model/PredExpr.py" />
+        <option value="$PROJECT_DIR$/analizador/model/NatExpr.py" />
       </list>
     </option>
   </component>
@@ -481,6 +442,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -489,7 +451,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -505,54 +466,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/analizador/model/ZeroExpr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="22" lean-forward="true" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/model/VarExpr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/model/Tipo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/model/SuccExpr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/model/PredExpr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/model/NatExpr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analizador/model/LambdaExpr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -601,14 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analizador/functions/Expr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -649,63 +554,153 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#17#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analizador/parsetab.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1500069903000" expanded="true" signature="2525:2528" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/Tipo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/model/BooleanExpr.py">
+    <entry file="file://$PROJECT_DIR$/analizador/model/IfExpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="48" lean-forward="false" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analizador/model/IsZeroExpr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/analizador/model/AppExpr.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/BooleanExpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/IsZeroExpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/oldModels.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/ZeroExpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="32" lean-forward="false" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
-          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/VarExpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/PredExpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/analizador/parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-161">
-          <caret line="204" column="3" lean-forward="false" selection-start-line="204" selection-start-column="3" selection-end-line="204" selection-end-column="3" />
+        <state relative-caret-position="374">
+          <caret line="243" column="26" lean-forward="false" selection-start-line="243" selection-start-column="19" selection-end-line="243" selection-end-column="26" />
           <folding>
             <element signature="e#27#50#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/SuccExpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analizador/model/NatExpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="22" lean-forward="true" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

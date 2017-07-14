@@ -1,7 +1,8 @@
 import sys
+from Tipo import *
 
 class BooleanExpr(object):
-    def __init__(self, valor):
+    def __init__(self, value):
         self.value = value
         self.type = Tipo("Bool")
 

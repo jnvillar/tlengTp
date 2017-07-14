@@ -1,36 +1,47 @@
 """Parser LR(1) del tp."""
 import ply.yacc as yacc
-import sys
 from .lexer import tokens
-from .model import *
+from analizador.model import AppExpr
+from analizador.model import IfExpr
+from analizador.model import IsZeroExpr
+from analizador.model import LambdaExpr
+from analizador.model import NatExpr
+from analizador.model import PredExpr
+from analizador.model import SuccExpr
+from analizador.model import Tipo
+from analizador.model import VarExpr
+from analizador.model import ZeroExpr
+from analizador.model import BooleanExpr
 
-
-
-
+'''
 precedence = [
     ('left', 'LAMBDA'),
     ('left', 'IF'),
     ('left', 'APP'),
 ]
+'''
 
+precedence = [
+    ('left', 'IF'),
+]
 
 '''
-def p_expression_zero(p):
-    'expression : ZERO'
+def p_expr_zero(p):
+    'expr : ZERO'
     e = Element(0)
     t = Tipo('Nat')
     e.tipo = t
     p[0] = e
 
-def p_expression_true(p):
-	'expression : TRUE'
+def p_expr_true(p):
+	'expr : TRUE'
 	e = Element(True)
 	t = Tipo('Bool')
 	e.tipo = t
 	p[0] = e
 
-def p_expression_false(p):
-	'expression : FALSE'
+def p_expr_false(p):
+	'expr : FALSE'
 	#p[0] = BoolExpr(False)
 
 	e = Element(False)
@@ -38,14 +49,14 @@ def p_expression_false(p):
 	e.tipo = t
 	p[0] = e
 
-def p_expression_if_then_else(p):
-    'expression : IF expression THEN expression ELSE expression %prec IF'
+def p_expr_if_then_else(p):
+    'expr : IF expr THEN expr ELSE expr %prec IF'
 
     #p[0] = IfExpression(p[2], p[4], p[6])
 
 
 
-    if(debug): print('p_expression_if_then_else')
+    if(debug): print('p_expr_if_then_else')
     e = Element()
     if(p[4].tipo.dom != 'Var'):
     	e.tipo = p[4].tipo
@@ -78,15 +89,15 @@ def p_expression_if_then_else(p):
 
     p[0] = e
 
-def p_expression_number(p):
-    'expression : NUMBER'
+def p_expr_number(p):
+    'expr : NUMBER'
     e = Element(p[1])
     t = Tipo('Nat')
     e.tipo = t
     p[0] = e
 
 
-def p_expression_type(p):
+def p_expr_type(p):
     'funcionType : TYPE funcImg'
     e = Element()
     t = Tipo(p[1])
@@ -95,21 +106,21 @@ def p_expression_type(p):
     e.tipo = t
     p[0] = e
 
-def p_expression_type_img(p):
+def p_expr_type_img(p):
     'funcImg : ARROW funcionType'
     e = Element()
     t = Tipo(p[2].tipo)
     e.tipo = t
     p[0] = e
 
-def p_expression_type_img_empty(p):
+def p_expr_type_img_empty(p):
     'funcImg : '
     e = Element()
     p[0] = e
 
-def p_expression_pred(p):
-    'expression : PRED OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    if(debug): print('p_expression_pred')
+def p_expr_pred(p):
+    'expr : PRED OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    if(debug): print('p_expr_pred')
 
     e = Element()
     e.hijo1 = p[3]
@@ -126,9 +137,9 @@ def p_expression_pred(p):
     e.tipo = t
     p[0] = e
    
-def p_expression_succ(p):
-    'expression : SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    if(debug): print('p_expression_succ')
+def p_expr_succ(p):
+    'expr : SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    if(debug): print('p_expr_succ')
     e = Element()
     e.hijo1 = p[3]
     if (p[3].estaDefinido):
@@ -147,8 +158,8 @@ def p_expression_succ(p):
     p[0] = e
 
 
-def p_expression_is_zero(p): 
-    'expression : ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS'
+def p_expr_is_zero(p): 
+    'expr : ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS'
     e = Element()
     t = Tipo('Bool')
     e.tipo = t
@@ -165,31 +176,31 @@ def p_expression_is_zero(p):
         e.estaDefinido = False
     p[0] = e
 
-def p_expression_variable(p):
-    'expression : VARIABLE'
+def p_expr_variable(p):
+    'expr : VARIABLE'
     p[0] = VarExpr(p[1])
 
 
-def p_expression_lambda(p):
-    'expression : BACKSLASH expression 2DOTS funcionType DOT expression %prec LAMBDA'
-    if(debug): print('p_expression_lambda')
+def p_expr_lambda(p):
+    'expr : BACKSLASH expr 2DOTS funcionType DOT expr %prec LAMBDA'
+    if(debug): print('p_expr_lambda')
     p[0] = LambdaExpr(p[2], p[4], p[6])
     
     
-def p_expression_application(p):
-    'expression :  OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    if(debug): print('p_expression_application')
+def p_expr_application(p):
+    'expr :  OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    if(debug): print('p_expr_application')
     p[0] = p[2]
 
 
-def p_expression_values(p):
-    'expression_values : expression'
-    if(debug): print('p_expression_values')
+def p_expr_values(p):
+    'expr_values : expr'
+    if(debug): print('p_expr_values')
     p[0] = p[1]
 
-def p_expression_values_empty(p):
-    'expression_values : '
-    if(debug): print('p_expression_values_empty')
+def p_expr_values_empty(p):
+    'expr_values : '
+    if(debug): print('p_expr_values_empty')
     e = Element()
     t = Tipo("nada")
     e.tipo = t
@@ -197,50 +208,65 @@ def p_expression_values_empty(p):
     p[0] = e
     pass
 
-def p_expression_application_function(p):
-    'expression :  expression expression %prec APP'
-    if(debug): print('p_expression_application_function')
-    p[0] = AppExpr(p[1],p[2])
-    
 '''
 
-def p_expression_true(p):
-    'expression : TRUE'
-    p[0] = BooleanExpr(True)
+'''
+def p_expr_application_function(p):
+    'expr :  expr expr %prec APP'
+    if(debug): print('p_expr_application_function')
+    p[0] = AppExpr.AppExpr(p[1],p[2])
+'''
 
-def p_expression_false(p):
-    'expression : FALSE'
-    p[0] = BooleanExpr(False)
 
-def p_expression_if_then_else(p):
-    'expression : IF expression THEN expression ELSE expression %prec IF'
-    p[0] = IfExpr(p[2], p[4], p[6])
+def p_expression_initial(p):
+    'expression : expr'
+    p[0] = p[1].evaluate({})
 
-def p_expression_is_zero(p):
-    'expression : ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    p[0] = IsZeroExpr(p[3])
+def p_expr_zero(p):
+    'expr : ZERO'
+    p[0] = ZeroExpr.ZeroExpr()
 
-def p_expression_number(p):
-    'expression : NUMBER'
-    p[0] = NatExpr(p[1])
+def p_expr_pred(p):
+    'expr : PRED OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    p[0] = PredExpr.PredExpr(p[3])
 
-def p_expression_pred(p):
-    'expression : PRED OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    p[0] = PredExpr(p[3])
+def p_expr_succ(p):
+    'expr : SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    p[0] = SuccExpr.SuccExpr(p[3])
 
-def p_expression_succ(p):
-    'expression : SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    p[0] = SuccExpr(p[3])
+def p_expr_is_zero(p):
+    'expr : ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    p[0] = IsZeroExpr.IsZeroExpr(p[3])
 
-def p_expression_zero(p):
-    'expression : ZERO'
-    p[0] = ZeroExpr()
+
+def p_expr_number(p):
+    'expr : NUMBER'
+    p[0] = NatExpr.NatExpr(p[1])
+
+
+def p_expr_true(p):
+    'expr : TRUE'
+    bool = BooleanExpr.BooleanExpr(True)
+    bool.parse()
+    res = bool.evaluate()
+    p[0] = res
+
+
+def p_expr_false(p):
+    'expr : FALSE'
+    p[0] = BooleanExpr.BooleanExpr(False)
+
+def p_expr_if_then_else(p):
+    'expr : IF expr THEN expr ELSE expr %prec IF'
+    p[0] = IfExpr.IfExpr(p[2], p[4], p[6])
+
 
 def p_error(p):
     parser.restart()
 
 # Build the parser
 parser = yacc.yacc(debug=True)
+
 
 def apply_parser(str):
     return parser.parse(str)

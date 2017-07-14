@@ -1,4 +1,4 @@
-class VarExpr(Expr):
+class VarExpr(object):
     def __init__(self, name):
         self.name = name
 
@@ -10,4 +10,4 @@ class VarExpr(Expr):
 
     def tipar(self, context):
         if self.name not in context:
-            raise Exception('ERROR: El término no es cerrado (' + self.name + ' está libre)')
+            raise Exception('ERROR: El termino no es cerrado (' + self.name + ' esta libre)')

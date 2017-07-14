@@ -1,20 +1,10 @@
-import Tipo
+from analizador.model import Tipo
 
 
 class NatExpr(object):
-    def __init__(object):
-        self.value = object
-        self.type = Tipo("Nat")
-
-        def __str__(self):
-            res = ""
-            for it in range(self.value):
-                res = res + "succ("
-
-            res = res + "0"
-
-            for x in range(self.value):
-                res = res + ")"
+    def __init__(self, expr):
+        self.value = int(expr)
+        self.type = Tipo.Tipo("Nat")
 
     def evaluate(self, context):
         return self.value

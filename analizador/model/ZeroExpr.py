@@ -1,13 +1,10 @@
-from analizador.model import Tipo
+from analizador.model.oldModels import Tipo
 
 
-class Zero(object):
-    def __init__():
+class ZeroExpr(object):
+    def __init__(self):
         self.value = 0
         self.type = Tipo("Nat")
-
-    def __str__(self):
-        return "0"
 
     def evaluate(self, context):
         return self.value

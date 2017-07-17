@@ -21,7 +21,7 @@ class BooleanExpr(object):
     def getType(self):
     	return self.type
         
-    def evaluate(self, context):
+    def evaluate(self, context,value = None):
         pass
 
 

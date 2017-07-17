@@ -20,3 +20,6 @@ class Tipo(object):
 
     def getImg(self):
         return self.img
+
+    def __eq__(self, other):
+        return str(self) == str(other)

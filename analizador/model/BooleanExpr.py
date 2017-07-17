@@ -5,13 +5,26 @@ class BooleanExpr(object):
     def __init__(self, value):
         self.value = value
         self.type = Tipo("Bool")
+        self.initialExpression = False
 
     def __str__(self):
-        return str(self.value).lower() 
+        toPrint = str(self.value).lower()
 
+        if(self.initialExpression):
+            toPrint = toPrint+":"+str(self.type)
+        return toPrint
+
+
+    def getValue(self):
+    	return self.value
+
+    def getType(self):
+    	return self.type
         
-    def evaluate(self):
-        return self.value
+    def evaluate(self, context):
+        pass
 
 
+    def setExprTypes(self, context):
+    	pass
 

@@ -22,6 +22,7 @@ precedence = [
 '''
 
 precedence = [
+    ('left', 'LAMBDA'),
     ('left', 'IF'),
 ]
 
@@ -176,15 +177,10 @@ def p_expr_is_zero(p):
         e.estaDefinido = False
     p[0] = e
 
-def p_expr_variable(p):
-    'expr : VARIABLE'
-    p[0] = VarExpr(p[1])
 
 
-def p_expr_lambda(p):
-    'expr : BACKSLASH expr 2DOTS funcionType DOT expr %prec LAMBDA'
-    if(debug): print('p_expr_lambda')
-    p[0] = LambdaExpr(p[2], p[4], p[6])
+
+
     
     
 def p_expr_application(p):
@@ -220,7 +216,10 @@ def p_expr_application_function(p):
 
 def p_expression_initial(p):
     'expression : expr'
-    p[0] = p[1].evaluate({})
+    p[1].setExprTypes({})
+    p[1].evaluate({})
+    p[1].initialExpression = True
+    p[0] = p[1]    
 
 def p_expr_zero(p):
     'expr : ZERO'
@@ -238,19 +237,13 @@ def p_expr_is_zero(p):
     'expr : ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS'
     p[0] = IsZeroExpr.IsZeroExpr(p[3])
 
-
 def p_expr_number(p):
     'expr : NUMBER'
     p[0] = NatExpr.NatExpr(p[1])
 
-
 def p_expr_true(p):
     'expr : TRUE'
-    bool = BooleanExpr.BooleanExpr(True)
-    bool.parse()
-    res = bool.evaluate()
-    p[0] = res
-
+    p[0] = BooleanExpr.BooleanExpr(True)
 
 def p_expr_false(p):
     'expr : FALSE'
@@ -259,6 +252,28 @@ def p_expr_false(p):
 def p_expr_if_then_else(p):
     'expr : IF expr THEN expr ELSE expr %prec IF'
     p[0] = IfExpr.IfExpr(p[2], p[4], p[6])
+
+def p_expr_variable(p):
+    'expr : VARIABLE'
+    p[0] = VarExpr.VarExpr(p[1])
+
+def p_expr_lambda(p):
+    'expr : BACKSLASH expr 2DOTS funcionType DOT expr %prec LAMBDA'
+    p[0] = LambdaExpr.LambdaExpr(p[2], p[4], p[6])
+
+
+
+def p_expr_type(p):
+    'funcionType : TYPE funcImg'
+    p[0] = Tipo.Tipo(p[1], str(p[2]))
+
+def p_expr_type_img(p):
+    'funcImg : ARROW funcionType'
+    p[0] = Tipo.Tipo(str(p[2]))
+
+def p_expr_type_img_empty(p):
+    'funcImg : '
+    p[0] = Tipo.Tipo()
 
 
 def p_error(p):

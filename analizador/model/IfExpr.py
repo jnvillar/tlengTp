@@ -1,30 +1,62 @@
 import sys
-
+from Tipo import *
 
 class IfExpr(object):
-    def __init__(self, cond, trueValue, falseValue):
+    def __init__(self, cond, trueExpr, falseExpr):
+        self.value = None
+        self.type = None
         self.cond = cond
-        self.trueValue = trueValue
-        self.falseValue = falseValue
+        self.trueExpr = trueExpr
+        self.falseExpr = falseExpr
+        self.initialExpression = False
 
     def __str__(self):
-        return 'if ' + str(self.hijo1) + ' then ' + str(self.hijo2) + ' else ' + str(self.hijo3)
+        if(self.type == Tipo('Undefined')):
+            toPrint = 'if ' + str(self.cond) + ' then ' + str(self.trueExpr) + ' else ' + str(self.falseExpr)
+        else:
+            if(self.cond.getValue()):
+                toPrint = str(self.trueExpr)
+            else:
+                toPrint = str(self.falseExpr)
 
-    def validType(self):
-        if self.differentType(self.trueValue, self.falseValue):
-            raise Exception("Las dos opciones del if deben tener el mismo tipo")
+        if(self.initialExpression):
+            toPrint = toPrint+":"+str(self.type)
+        return toPrint
+
+    
 
     def evaluate(self, context):
-        cond = self.cond.evaluate(context)
-        self.trueValue = self.trueValue.evaluate(context)
-        self.falseValue = self.falseValue.evaluate(context)
+        self.cond.evaluate(context)
+        self.trueExpr.evaluate(context)
+        self.falseExpr.evaluate(context)
 
-        if cond:
-            return self.trueValue
+
+
+    def setExprTypes(self, context):
+        self.cond.setExprTypes(context)
+        self.trueExpr.setExprTypes(context)
+        self.falseExpr.setExprTypes(context)
+
+        # TODO: VALIDAR QUE trueExpr Y falseExpr SEAN DEL MISMO TIPO
+        if(self.cond.getType() == Tipo('Bool')):
+            self.type = self.trueExpr.getType()
+            self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
         else:
-            return self.falseValue
+            self.type = Tipo('Undefined')
 
-    def differentType(trueValue, falseValue):
-        if (trueValue.getType().getDom() != 'Var') & (falseValue.getType().getDom() != 'Var'):
-            if (str(trueValue.getType()) != str(falseValue.getType())):
+
+    def getType(self):
+        return self.type
+
+    def getValue(self):
+        return self.value
+
+
+    def differentType(trueExpr, falseExpr):
+        if (trueExpr.getType().getDom() != 'Var') & (falseExpr.getType().getDom() != 'Var'):
+            if (str(trueExpr.getType()) != str(falseExpr.getType())):
                 return True
+
+    def validType(self):
+        if self.differentType(self.trueExpr, self.falseExpr):
+            raise Exception("Las dos opciones del if deben tener el mismo tipo")

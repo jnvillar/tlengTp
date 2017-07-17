@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="be21b003-9c2a-4b60-a9ab-0c6c8443cceb" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/analizador/model.py" afterPath="$PROJECT_DIR$/analizador/model/oldModels.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/AppExpr.py" afterPath="$PROJECT_DIR$/analizador/model/AppExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/BooleanExpr.py" afterPath="$PROJECT_DIR$/analizador/model/BooleanExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/IfExpr.py" afterPath="$PROJECT_DIR$/analizador/model/IfExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/NatExpr.py" afterPath="$PROJECT_DIR$/analizador/model/NatExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/PredExpr.py" afterPath="$PROJECT_DIR$/analizador/model/PredExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/SuccExpr.py" afterPath="$PROJECT_DIR$/analizador/model/SuccExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/VarExpr.py" afterPath="$PROJECT_DIR$/analizador/model/VarExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/model/ZeroExpr.py" afterPath="$PROJECT_DIR$/analizador/model/ZeroExpr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/parser.out" afterPath="$PROJECT_DIR$/analizador/parser.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/parser.py" afterPath="$PROJECT_DIR$/analizador/parser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analizador/parsetab.py" afterPath="$PROJECT_DIR$/analizador/parsetab.py" />
-    </list>
+    <list default="true" id="be21b003-9c2a-4b60-a9ab-0c6c8443cceb" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +28,7 @@
         <entry file="file://$PROJECT_DIR$/analizador/model/SuccExpr.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+              <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -52,7 +38,7 @@
         <entry file="file://$PROJECT_DIR$/analizador/model/PredExpr.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
-              <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+              <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -62,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/analizador/model/NatExpr.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
-              <caret line="3" column="22" lean-forward="true" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+              <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -72,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
-              <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+              <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -609,7 +595,7 @@
         <state relative-caret-position="36">
           <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -657,7 +643,7 @@
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -673,7 +659,7 @@
     <entry file="file://$PROJECT_DIR$/analizador/model/PredExpr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+          <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -691,7 +677,7 @@
     <entry file="file://$PROJECT_DIR$/analizador/model/SuccExpr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -699,7 +685,7 @@
     <entry file="file://$PROJECT_DIR$/analizador/model/NatExpr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
-          <caret line="3" column="22" lean-forward="true" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
           <folding />
         </state>
       </provider>

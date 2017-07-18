@@ -1,24 +1,28 @@
 from Tipo import *
 
 
-
 class PredExpr(object):
     def __init__(self, expr):
         self.expr = expr
         self.value = None
         self.type = None
         self.initialExpression = False
+        self.defined = False
+
+    def isDefined(self):
+        return self.defined
 
     def evaluate(self, context):
 
         self.expr.evaluate(context)
-       
-        if self.expr.getType() == Tipo("Nat"):
+
+        if self.expr.isDefined():
+            self.defined = True
             self.value = max(0, self.expr.getValue() - 1)
 
     def __str__(self):
         if self.type == Tipo("Undefined"):
-            toPrint = "pred(" + str(self.expr) + ")" 
+            toPrint = "pred(" + str(self.expr) + ")"
         else:
             toPrint = ""
             for it in range(self.value):
@@ -28,10 +32,9 @@ class PredExpr(object):
             for it in range(self.value):
                 toPrint = toPrint + ")"
 
-        if(self.initialExpression):
-            toPrint = toPrint+":"+str(self.type)
+        if (self.initialExpression):
+            toPrint = toPrint + ":" + str(self.type)
         return toPrint
-
 
     def getType(self):
         return self.type
@@ -41,7 +44,4 @@ class PredExpr(object):
 
     def setExprTypes(self, context):
         self.expr.setExprTypes(context)
-        if(self.expr.getType() == Tipo('Nat')):
-            self.type = Tipo('Nat')
-        else:
-            self.type = Tipo('Undefined')
+        self.type = Tipo('Nat')

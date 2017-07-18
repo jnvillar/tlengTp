@@ -6,6 +6,7 @@ class BooleanExpr(object):
         self.value = value
         self.type = Tipo("Bool")
         self.initialExpression = False
+        self.defined = True
 
     def __str__(self):
         toPrint = str(self.value).lower()

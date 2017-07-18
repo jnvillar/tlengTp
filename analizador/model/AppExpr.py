@@ -9,10 +9,6 @@ class AppExpr(object):
         self.initialExpression = False
         self.value = None
 
-        # def __str__(self):
-        #     return '\\'+str(self.var)+':'+ str(self.tipo) +'.'+str(self.expr)
-
-
         def evaluate(self, context, value=None):
             self.exprDer.evaluate(context)
             valDer = self.exprDer.getValue()
@@ -38,7 +34,7 @@ class AppExpr(object):
 
             if self.exprDer.getType().dom != self.exprIzq.getType().img:
                 raise "No coinciden los tipos papa"
-            
+
             if self.exprDer.getType() == Tipo('Nat'):
                 self.type = Tipo('Nat')
             elif self.exprDer.getType() == Tipo('Bool'):

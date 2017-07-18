@@ -20,6 +20,9 @@ class ZeroExpr(object):
     def setExprTypes(self, context):
     	pass
 
+    def isDefined(self):
+        return self.defined
+
     def __str__(self):
     	toPrint = ""+str(self.value)
 

@@ -11,7 +11,7 @@ class LambdaExpr(object):
 
     def __str__(self):
         if not self.defined:
-            toPrint = '\\' + str(self.var) + ':' + str(self.type) + '.' + str(self.expr)
+            toPrint = '\\' + str(self.var) + ':' + str(self.tipoVar) + '.' + str(self.expr)
         else:
             toPrint = str(self.expr)
 
@@ -21,8 +21,11 @@ class LambdaExpr(object):
         return toPrint
 
     def evaluate(self, context, value = None):
-        if (self.var.getName() in context):
-            self.expr.evaluar(context)
+        context[self.var.getName()] = value
+        self.expr.evaluate(context)
+        if self.expr.isDefined():
+            self.defined = True
+
 
     def setExprTypes(self, context):
         if self.var.getName() in context:

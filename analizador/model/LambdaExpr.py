@@ -8,6 +8,7 @@ class LambdaExpr(object):
         self.type = None
         self.value = None
         self.defined = False
+        self.initialExpression = False
 
     def __str__(self):
         if not self.defined:

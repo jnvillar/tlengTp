@@ -8,40 +8,40 @@ class AppExpr(object):
         self.type = None
         self.initialExpression = False
         self.value = None
+        self.defined = False
 
-        # def __str__(self):
-        #     return '\\'+str(self.var)+':'+ str(self.tipo) +'.'+str(self.expr)
+    def evaluate(self, context, value=None):
+        self.exprDer.evaluate(context)
+        valDer = self.exprDer.getValue()
+        self.exprIzq.evaluate(context, valDer)
+        self.value = self.exprDer.getValue()
+        if(self.exprIzq.img != None):
+            self.defined = True
+
+    def __str__(self):
+        toPrint = ""
+        if not self.defined:
+            toPrint = str(self.exprDer) + str(self.exprIzq)
+        else:
+            toPrint = toPrint + str(self.exprIzq)
+
+        if self.initialExpression:
+            toPrint = toPrint + ":" + str(self.type)
+            toPrint = toPrint + str(self.exprDer.getType().img)
+
+        return toPrint
 
 
-        def evaluate(self, context, value=None):
-            self.exprDer.evaluate(context)
-            valDer = self.exprDer.getValue()
-            self.exprIzq.evaluate(context, valDer)
-            self.value = self.exprDer.getValue()
+    def setExprTypes(self, context):
+        self.exprDer.setExprTypes(context)
+        self.exprIzq.setExprTypes(context)
 
-        def __str__(self):
-            toPrint = ""
-            if self.type == Tipo("Undefined"):
-                toPrint = str(self.exprDer) + str(self.exprIzq)
-            else:
-                toPrint = toPrint + str(expr1)
-
-            if self.initialExpression:
-                toPrint = toPrint + ":" + str(self.type)
-                toPrint = toPrint + str(self.exprDer.getType().img)
-
-            print toPrint
-
-        def setExprTypes(self, context):
-            self.exprDer.setExprTypes(context)
-            self.exprIzq.setExprTypes(context)
-
-            if self.exprDer.getType().dom != self.exprIzq.getType().img:
-                raise "No coinciden los tipos papa"
-            
-            if self.exprDer.getType() == Tipo('Nat'):
-                self.type = Tipo('Nat')
-            elif self.exprDer.getType() == Tipo('Bool'):
-                self.type = Tipo('Bool')
-            else:
-                self.type = Tipo('Undefined')
+        if self.exprIzq.getType().img == None:
+            raise Exception("ERROR: La parte izquierda de la aplicacion no es una funcion con dominio en " + str(self.exprDer.getType()))
+        
+        if self.exprDer.getType() == Tipo('Nat'):
+            self.type = Tipo('Nat')
+        elif self.exprDer.getType() == Tipo('Bool'):
+            self.type = Tipo('Bool')
+        else:
+            self.type = Tipo('Undefined')

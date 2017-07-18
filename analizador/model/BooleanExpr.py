@@ -25,6 +25,8 @@ class BooleanExpr(object):
     def evaluate(self, context,value = None):
         pass
 
+    def isDefined(self):
+        return self.defined
 
     def setExprTypes(self, context):
     	pass

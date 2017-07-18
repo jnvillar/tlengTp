@@ -7,11 +7,12 @@ class SuccExpr(object):
         self.value = None
         self.type = None
         self.initialExpression = False
+        self.defined = False
 
     def __str__(self):
         toPrint = ""
-        if self.type == Tipo("Undefined"):
-            toPrint = "succ(" + str(expr) + ")"
+        if not self.defined:
+            toPrint = "succ(" + str(self.expr) + ")"
         else:
             for it in range(self.value):
                 toPrint = toPrint + "succ("
@@ -27,8 +28,9 @@ class SuccExpr(object):
     def evaluate(self, context):
 
         self.expr.evaluate(context)
-        if (self.expr.getType() == Tipo('Nat')):
+        if (self.expr.isDefined()):
             self.value = self.expr.getValue() + 1
+            self.defined = True
 
     def getType(self):
         return self.type
@@ -42,3 +44,6 @@ class SuccExpr(object):
             self.type = Tipo('Nat')
         else:
             self.type = Tipo('Undefined')
+
+    def isDefined(self):
+        return self.defined

@@ -6,6 +6,7 @@ class NatExpr(object):
         self.value = int(value)
         self.type = Tipo.Tipo("Nat")
         self.initialExpression = False
+        self.defined = True
 
     def evaluate(self, context):
         pass

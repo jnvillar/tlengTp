@@ -6,6 +6,7 @@ class ZeroExpr(object):
         self.value = 0
         self.type = Tipo("Nat")
         self.initialExpression = False
+        self.defined = True
 
     def evaluate(self, context):
         pass

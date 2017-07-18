@@ -1,10 +1,5 @@
 Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    ARROW
-    TYPE
-
 Grammar
 
 Rule 0     S' -> expression
@@ -19,11 +14,14 @@ Rule 8     expr -> FALSE
 Rule 9     expr -> IF expr THEN expr ELSE expr
 Rule 10    expr -> VARIABLE
 Rule 11    expr -> BACKSLASH expr 2DOTS funcionType DOT expr
+Rule 12    funcionType -> TYPE funcImg
+Rule 13    funcImg -> ARROW funcionType
+Rule 14    funcImg -> <empty>
 
 Terminals, with rules where they appear
 
 2DOTS                : 11
-ARROW                : 
+ARROW                : 13
 BACKSLASH            : 11
 CLOSEPARENTHESIS     : 3 4 5
 DOT                  : 11
@@ -37,7 +35,7 @@ PRED                 : 3
 SUCC                 : 4
 THEN                 : 9
 TRUE                 : 7
-TYPE                 : 
+TYPE                 : 12
 VARIABLE             : 10
 ZERO                 : 2
 error                : 
@@ -46,5 +44,488 @@ Nonterminals, with rules where they appear
 
 expr                 : 1 3 4 5 9 9 9 11 11
 expression           : 0
-funcionType          : 11
+funcImg              : 12
+funcionType          : 11 13
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . expr
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 3
+    expression                     shift and go to state 10
+
+state 1
+
+    (8) expr -> FALSE .
+
+    $end            reduce using rule 8 (expr -> FALSE .)
+    2DOTS           reduce using rule 8 (expr -> FALSE .)
+    THEN            reduce using rule 8 (expr -> FALSE .)
+    CLOSEPARENTHESIS reduce using rule 8 (expr -> FALSE .)
+    ELSE            reduce using rule 8 (expr -> FALSE .)
+
+
+state 2
+
+    (11) expr -> BACKSLASH . expr 2DOTS funcionType DOT expr
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 13
+
+state 3
+
+    (1) expression -> expr .
+
+    $end            reduce using rule 1 (expression -> expr .)
+
+
+state 4
+
+    (4) expr -> SUCC . OPENPARENTHESIS expr CLOSEPARENTHESIS
+
+    OPENPARENTHESIS shift and go to state 14
+
+
+state 5
+
+    (6) expr -> NUMBER .
+
+    $end            reduce using rule 6 (expr -> NUMBER .)
+    2DOTS           reduce using rule 6 (expr -> NUMBER .)
+    THEN            reduce using rule 6 (expr -> NUMBER .)
+    CLOSEPARENTHESIS reduce using rule 6 (expr -> NUMBER .)
+    ELSE            reduce using rule 6 (expr -> NUMBER .)
+
+
+state 6
+
+    (10) expr -> VARIABLE .
+
+    $end            reduce using rule 10 (expr -> VARIABLE .)
+    2DOTS           reduce using rule 10 (expr -> VARIABLE .)
+    THEN            reduce using rule 10 (expr -> VARIABLE .)
+    CLOSEPARENTHESIS reduce using rule 10 (expr -> VARIABLE .)
+    ELSE            reduce using rule 10 (expr -> VARIABLE .)
+
+
+state 7
+
+    (2) expr -> ZERO .
+
+    $end            reduce using rule 2 (expr -> ZERO .)
+    2DOTS           reduce using rule 2 (expr -> ZERO .)
+    THEN            reduce using rule 2 (expr -> ZERO .)
+    CLOSEPARENTHESIS reduce using rule 2 (expr -> ZERO .)
+    ELSE            reduce using rule 2 (expr -> ZERO .)
+
+
+state 8
+
+    (3) expr -> PRED . OPENPARENTHESIS expr CLOSEPARENTHESIS
+
+    OPENPARENTHESIS shift and go to state 15
+
+
+state 9
+
+    (5) expr -> ISZERO . OPENPARENTHESIS expr CLOSEPARENTHESIS
+
+    OPENPARENTHESIS shift and go to state 16
+
+
+state 10
+
+    (0) S' -> expression .
+
+
+
+state 11
+
+    (7) expr -> TRUE .
+
+    $end            reduce using rule 7 (expr -> TRUE .)
+    2DOTS           reduce using rule 7 (expr -> TRUE .)
+    THEN            reduce using rule 7 (expr -> TRUE .)
+    CLOSEPARENTHESIS reduce using rule 7 (expr -> TRUE .)
+    ELSE            reduce using rule 7 (expr -> TRUE .)
+
+
+state 12
+
+    (9) expr -> IF . expr THEN expr ELSE expr
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 17
+
+state 13
+
+    (11) expr -> BACKSLASH expr . 2DOTS funcionType DOT expr
+
+    2DOTS           shift and go to state 18
+
+
+state 14
+
+    (4) expr -> SUCC OPENPARENTHESIS . expr CLOSEPARENTHESIS
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 19
+
+state 15
+
+    (3) expr -> PRED OPENPARENTHESIS . expr CLOSEPARENTHESIS
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 20
+
+state 16
+
+    (5) expr -> ISZERO OPENPARENTHESIS . expr CLOSEPARENTHESIS
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 21
+
+state 17
+
+    (9) expr -> IF expr . THEN expr ELSE expr
+
+    THEN            shift and go to state 22
+
+
+state 18
+
+    (11) expr -> BACKSLASH expr 2DOTS . funcionType DOT expr
+    (12) funcionType -> . TYPE funcImg
+
+    TYPE            shift and go to state 24
+
+    funcionType                    shift and go to state 23
+
+state 19
+
+    (4) expr -> SUCC OPENPARENTHESIS expr . CLOSEPARENTHESIS
+
+    CLOSEPARENTHESIS shift and go to state 25
+
+
+state 20
+
+    (3) expr -> PRED OPENPARENTHESIS expr . CLOSEPARENTHESIS
+
+    CLOSEPARENTHESIS shift and go to state 26
+
+
+state 21
+
+    (5) expr -> ISZERO OPENPARENTHESIS expr . CLOSEPARENTHESIS
+
+    CLOSEPARENTHESIS shift and go to state 27
+
+
+state 22
+
+    (9) expr -> IF expr THEN . expr ELSE expr
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 28
+
+state 23
+
+    (11) expr -> BACKSLASH expr 2DOTS funcionType . DOT expr
+
+    DOT             shift and go to state 29
+
+
+state 24
+
+    (12) funcionType -> TYPE . funcImg
+    (13) funcImg -> . ARROW funcionType
+    (14) funcImg -> .
+
+    ARROW           shift and go to state 31
+    DOT             reduce using rule 14 (funcImg -> .)
+
+    funcImg                        shift and go to state 30
+
+state 25
+
+    (4) expr -> SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS .
+
+    $end            reduce using rule 4 (expr -> SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    2DOTS           reduce using rule 4 (expr -> SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    THEN            reduce using rule 4 (expr -> SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    CLOSEPARENTHESIS reduce using rule 4 (expr -> SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    ELSE            reduce using rule 4 (expr -> SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+
+
+state 26
+
+    (3) expr -> PRED OPENPARENTHESIS expr CLOSEPARENTHESIS .
+
+    $end            reduce using rule 3 (expr -> PRED OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    2DOTS           reduce using rule 3 (expr -> PRED OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    THEN            reduce using rule 3 (expr -> PRED OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    CLOSEPARENTHESIS reduce using rule 3 (expr -> PRED OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    ELSE            reduce using rule 3 (expr -> PRED OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+
+
+state 27
+
+    (5) expr -> ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS .
+
+    $end            reduce using rule 5 (expr -> ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    2DOTS           reduce using rule 5 (expr -> ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    THEN            reduce using rule 5 (expr -> ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    CLOSEPARENTHESIS reduce using rule 5 (expr -> ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+    ELSE            reduce using rule 5 (expr -> ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS .)
+
+
+state 28
+
+    (9) expr -> IF expr THEN expr . ELSE expr
+
+    ELSE            shift and go to state 32
+
+
+state 29
+
+    (11) expr -> BACKSLASH expr 2DOTS funcionType DOT . expr
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 33
+
+state 30
+
+    (12) funcionType -> TYPE funcImg .
+
+    DOT             reduce using rule 12 (funcionType -> TYPE funcImg .)
+
+
+state 31
+
+    (13) funcImg -> ARROW . funcionType
+    (12) funcionType -> . TYPE funcImg
+
+    TYPE            shift and go to state 24
+
+    funcionType                    shift and go to state 34
+
+state 32
+
+    (9) expr -> IF expr THEN expr ELSE . expr
+    (2) expr -> . ZERO
+    (3) expr -> . PRED OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (4) expr -> . SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (5) expr -> . ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS
+    (6) expr -> . NUMBER
+    (7) expr -> . TRUE
+    (8) expr -> . FALSE
+    (9) expr -> . IF expr THEN expr ELSE expr
+    (10) expr -> . VARIABLE
+    (11) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
+
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 11
+    FALSE           shift and go to state 1
+    IF              shift and go to state 12
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
+
+    expr                           shift and go to state 35
+
+state 33
+
+    (11) expr -> BACKSLASH expr 2DOTS funcionType DOT expr .
+
+    $end            reduce using rule 11 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
+    2DOTS           reduce using rule 11 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
+    THEN            reduce using rule 11 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
+    CLOSEPARENTHESIS reduce using rule 11 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
+    ELSE            reduce using rule 11 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
+
+
+state 34
+
+    (13) funcImg -> ARROW funcionType .
+
+    DOT             reduce using rule 13 (funcImg -> ARROW funcionType .)
+
+
+state 35
+
+    (9) expr -> IF expr THEN expr ELSE expr .
+
+    $end            reduce using rule 9 (expr -> IF expr THEN expr ELSE expr .)
+    2DOTS           reduce using rule 9 (expr -> IF expr THEN expr ELSE expr .)
+    THEN            reduce using rule 9 (expr -> IF expr THEN expr ELSE expr .)
+    CLOSEPARENTHESIS reduce using rule 9 (expr -> IF expr THEN expr ELSE expr .)
+    ELSE            reduce using rule 9 (expr -> IF expr THEN expr ELSE expr .)
 

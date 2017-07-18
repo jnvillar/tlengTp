@@ -1,9 +1,12 @@
+from Tipo import *
+
 class VarExpr(object):
     def __init__(self, name):
         self.name = name
         self.expr = None
         self.value = None
         self.type = None
+        self.defined = False
 
 
     def __str__(self):
@@ -19,10 +22,15 @@ class VarExpr(object):
             raise Exception('ERROR: El termino no es cerrado (' + self.name + ' esta libre)')
 
         if (context[self.name] != None):
-        	self.type = context[self.name].getType()
-        else:
-        	self.type = Tipo('Undefined')
+        	self.type = context[self.name]
+        
         
 
     def getType(self):
     	return self.type
+
+    def getName(self):
+        return self.name
+
+    def isDefined(self):
+        return self.defined

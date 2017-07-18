@@ -273,7 +273,7 @@ def p_expr_type_img(p):
 
 def p_expr_type_img_empty(p):
     'funcImg : '
-    p[0] = Tipo.Tipo()
+    p[0] = Tipo.Tipo(None)
 
 
 def p_error(p):

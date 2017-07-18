@@ -7,7 +7,7 @@ class Tipo(object):
         self.img = img
 
     def __str__(self):
-        if (self.img == None):
+        if (self.img == None or self.img == 'None'):
             return str(self.dom)
         else:
             return str(self.dom) + '->' + str(self.img)

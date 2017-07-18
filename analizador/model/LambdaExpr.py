@@ -1,26 +1,41 @@
+from Tipo import *
+
 class LambdaExpr(object):
     def __init__(self, var, tipoVar, expr):
         self.var = var
         self.tipoVar = tipoVar
         self.expr = expr
-        self.tipo = None
+        self.type = None
         self.value = None
+        self.defined = False
 
     def __str__(self):
-        return '\\' + str(self.var) + ':' + str(self.tipo) + '.' + str(self.expr)
+        if not self.defined:
+            toPrint = '\\' + str(self.var) + ':' + str(self.type) + '.' + str(self.expr)
+        else:
+            toPrint = str(self.expr)
 
-    def evaluate(self, context, value):
-        if (context[var.getName()]):
+        if(self.initialExpression):
+            toPrint = toPrint+":"+str(self.type)
+
+        return toPrint
+
+    def evaluate(self, context, value = None):
+        if (self.var.getName() in context):
             self.expr.evaluar(context)
 
     def setExprTypes(self, context):
-        if self.var.name in context:
+        if self.var.getName() in context:
             raise Exception("Hay variables repetidas en distintas lambdas")
         else:
-            context[self.var.name] = tipo
-            self.tipo = Tipo(tipoVar, expr.setExprTypes(context))
-            return self.tipo
+            context[self.var.getName()] = self.tipoVar
+            self.expr.setExprTypes(context)
+            self.type = Tipo(self.tipoVar, self.expr.getType())
+                
 
     def getType(self):
-        return self.tipo
+        return self.type
+
+    def isDefined(self):
+        return self.defined
 

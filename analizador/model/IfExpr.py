@@ -39,16 +39,23 @@ class IfExpr(object):
         self.type = self.trueExpr.getType()
 
         # TODO: VALIDAR QUE trueExpr Y falseExpr SEAN DEL MISMO TIPO
+
+        if self.trueExpr.getType() != self.falseExpr.getType():
+            raise Exception("Las expresiones del if no son del mismo tipo")
+
         if (self.cond.getType() == Tipo('Bool')):
             self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
         else:
-            self.type = Tipo('Undefined')
+            self.type = Tipo('Undefined')  # CAMBIAR!!!
 
     def getType(self):
         return self.type
 
     def getValue(self):
         return self.value
+
+    def isDefined(self):
+        return self.defined
 
     def differentType(trueExpr, falseExpr):
         if (trueExpr.getType().getDom() != 'Var') & (falseExpr.getType().getDom() != 'Var'):

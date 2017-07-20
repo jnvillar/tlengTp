@@ -25,7 +25,7 @@ class IfExpr(object):
             toPrint = toPrint + ":" + str(self.type)
         return toPrint
 
-    def evaluate(self, context):
+    def evaluate(self, context, value = None):
         self.cond.evaluate(context)
         self.trueExpr.evaluate(context)
         self.falseExpr.evaluate(context)
@@ -38,15 +38,20 @@ class IfExpr(object):
         self.falseExpr.setExprTypes(context)
         self.type = self.trueExpr.getType()
 
-        # TODO: VALIDAR QUE trueExpr Y falseExpr SEAN DEL MISMO TIPO
 
-        if self.trueExpr.getType() != self.falseExpr.getType():
+
+        ##print "IF Tipo True: "+str(self.trueExpr.getType())
+        ##print "IF Tipo False: "+str(self.falseExpr.getType())
+        trueExprType = self.trueExpr.getType()
+        falseExprType = self.falseExpr.getType()
+        print "trueExprType: "+str(trueExprType)
+        print "falseExprType: "+str(falseExprType)
+        if (trueExprType != falseExprType):
             raise Exception("Las expresiones del if no son del mismo tipo")
 
         if (self.cond.getType() == Tipo('Bool')):
             self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
-        else:
-            self.type = Tipo('Undefined')  # CAMBIAR!!!
+            
 
     def getType(self):
         return self.type

@@ -23,9 +23,9 @@ class LambdaExpr(object):
 
     def evaluate(self, context, value = None):
         context[self.var.getName()] = value
-        self.expr.evaluate(context)
-        if self.expr.isDefined():
+        if value != None:
             self.defined = True
+        self.expr.evaluate(context)        
 
 
     def setExprTypes(self, context):
@@ -35,11 +35,13 @@ class LambdaExpr(object):
             context[self.var.getName()] = self.tipoVar
             self.expr.setExprTypes(context)
             self.type = Tipo(self.tipoVar, self.expr.getType())
-                
 
     def getType(self):
         return self.type
 
     def isDefined(self):
         return self.defined
+
+    def getValue(self):
+        return self.value
 

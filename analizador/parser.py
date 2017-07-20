@@ -12,6 +12,7 @@ from analizador.model import Tipo
 from analizador.model import VarExpr
 from analizador.model import ZeroExpr
 from analizador.model import BooleanExpr
+from analizador.model import ParanthesisExpr
 
 
 precedence = [
@@ -31,6 +32,10 @@ def p_expression_initial(p):
 def p_expr_application_function(p):
     'expr :  expr expr %prec APP'
     p[0] = AppExpr.AppExpr(p[1],p[2])
+
+def p_expr_parenthesis(p):
+    'expr : OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    p[0] = ParanthesisExpr.ParanthesisExpr(p[2])
 
 def p_expr_zero(p):
     'expr : ZERO'

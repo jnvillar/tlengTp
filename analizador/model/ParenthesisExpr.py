@@ -1,7 +1,7 @@
 from Tipo import *
 
 
-class SuccExpr(object):
+class ParanthesisExpr(object):
     def __init__(self, expr):
         self.expr = expr
         self.value = None
@@ -12,24 +12,19 @@ class SuccExpr(object):
     def __str__(self):
         toPrint = ""
         if not self.defined:
-            toPrint = "succ(" + str(self.expr) + ")"
+            toPrint = "(" + str(self.expr) + ")"
         else:
-            for it in range(self.value):
-                toPrint = toPrint + "succ("
-            toPrint = toPrint + "0"
-            for x in range(self.value):
-                toPrint = toPrint + ")"
+            toPrint = str(self.expr)
 
         if (self.initialExpression):
             toPrint = toPrint + ":" + str(self.type)
 
         return toPrint
 
-    def evaluate(self, context, value = None):
-
+    def evaluate(self, context):
         self.expr.evaluate(context)
         if (self.expr.isDefined()):
-            self.value = self.expr.getValue() + 1
+            self.value = self.expr.getValue()
             self.defined = True
 
     def getType(self):
@@ -40,10 +35,7 @@ class SuccExpr(object):
 
     def setExprTypes(self, context):
         self.expr.setExprTypes(context)
-        if self.expr.getType() == Tipo('Nat'):
-            self.type = Tipo('Nat')
-        else:
-            self.type = Tipo('Undefined')
+        self.type = self.expr.getType()
 
     def isDefined(self):
         return self.defined

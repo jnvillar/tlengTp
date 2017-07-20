@@ -3,8 +3,8 @@ from Tipo import *
 
 class AppExpr(object):
     def __init__(self, expr1, expr2):
-        self.exprDer = expr1
-        self.exprIzq = expr2
+        self.exprIzq = expr1
+        self.exprDer = expr2
         self.type = None
         self.initialExpression = False
         self.value = None
@@ -14,8 +14,8 @@ class AppExpr(object):
         self.exprDer.evaluate(context)
         valDer = self.exprDer.getValue()
         self.exprIzq.evaluate(context, valDer)
-        self.value = self.exprDer.getValue()
-        if(self.exprIzq.img != None):
+        self.value = self.exprIzq.getValue()
+        if(self.exprIzq.getType().getImg() != None):
             self.defined = True
 
     def __str__(self):
@@ -27,7 +27,6 @@ class AppExpr(object):
 
         if self.initialExpression:
             toPrint = toPrint + ":" + str(self.type)
-            toPrint = toPrint + str(self.exprDer.getType().img)
 
         return toPrint
 
@@ -36,12 +35,14 @@ class AppExpr(object):
         self.exprDer.setExprTypes(context)
         self.exprIzq.setExprTypes(context)
 
-        if self.exprIzq.getType().img == None:
+        if self.exprIzq.getType().getImg() == None:
             raise Exception("ERROR: La parte izquierda de la aplicacion no es una funcion con dominio en " + str(self.exprDer.getType()))
         
-        if self.exprDer.getType() == Tipo('Nat'):
-            self.type = Tipo('Nat')
-        elif self.exprDer.getType() == Tipo('Bool'):
-            self.type = Tipo('Bool')
-        else:
-            self.type = Tipo('Undefined')
+        self.type = self.exprIzq.getType().getImg()
+
+
+    def getType(self):
+        return self.type
+
+    def getValue(self):
+        return self.value

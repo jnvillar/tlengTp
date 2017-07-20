@@ -17,15 +17,12 @@ class VarExpr(object):
 
         return toPrint
 
-    def evaluate(self, context):
+    def evaluate(self, context, value = None):
         if self.name in context and context[self.name] != None:
-            print("evaluated")
             # self.expr = context[self.name]
             # self.value = self.expr.getValue()
             self.value = context[self.name]
             self.defined = True
-        else:
-            print("not evaluated")
 
     def setExprTypes(self, context):
         if self.name not in context:

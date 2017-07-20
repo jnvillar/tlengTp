@@ -15,13 +15,13 @@ class AppExpr(object):
         valDer = self.exprDer.getValue()
         self.exprIzq.evaluate(context, valDer)
         self.value = self.exprIzq.getValue()
-        if(self.exprIzq.getType().getImg() != None):
+        if(self.exprDer.getValue() in context or self.exprDer.__class__.__name__ != 'VarExpr'):
             self.defined = True
 
     def __str__(self):
         toPrint = ""
         if not self.defined:
-            toPrint = str(self.exprDer) + str(self.exprIzq)
+            toPrint = str(self.exprIzq) + " " + str(self.exprDer)
         else:
             toPrint = toPrint + str(self.exprIzq)
 
@@ -45,4 +45,6 @@ class AppExpr(object):
         return self.type
 
     def getValue(self):
+        if not self.defined:
+            return self
         return self.value

@@ -36,6 +36,8 @@ class SuccExpr(object):
         return self.type
 
     def getValue(self):
+        if not self.defined:
+            return self
         return self.value
 
     def setExprTypes(self, context):

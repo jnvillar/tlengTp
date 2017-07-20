@@ -57,6 +57,8 @@ class IfExpr(object):
         return self.type
 
     def getValue(self):
+        if not self.defined:
+            return self
         return self.value
 
     def isDefined(self):

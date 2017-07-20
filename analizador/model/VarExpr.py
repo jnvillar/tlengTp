@@ -32,6 +32,8 @@ class VarExpr(object):
             self.type = context[self.name]
 
     def getValue(self):
+        if not self.defined:
+            return self
         return self.value
 
     def getType(self):

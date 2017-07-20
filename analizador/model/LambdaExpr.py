@@ -43,5 +43,7 @@ class LambdaExpr(object):
         return self.defined
 
     def getValue(self):
+        if not self.defined:
+            return self
         return self.value
 

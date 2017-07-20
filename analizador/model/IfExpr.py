@@ -44,8 +44,8 @@ class IfExpr(object):
         ##print "IF Tipo False: "+str(self.falseExpr.getType())
         trueExprType = self.trueExpr.getType()
         falseExprType = self.falseExpr.getType()
-        print "trueExprType: "+str(trueExprType)
-        print "falseExprType: "+str(falseExprType)
+        print "trueExprType: "+str(trueExprType) + "clase: "+ trueExprType.__class__.__name__
+        print "falseExprType: "+str(falseExprType) + "clase: "+ falseExprType.__class__.__name__
         if (trueExprType != falseExprType):
             raise Exception("Las expresiones del if no son del mismo tipo")
 

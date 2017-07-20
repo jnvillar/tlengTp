@@ -42,8 +42,6 @@ class SuccExpr(object):
         self.expr.setExprTypes(context)
         if self.expr.getType() == Tipo('Nat'):
             self.type = Tipo('Nat')
-        else:
-            self.type = Tipo('Undefined')
 
     def isDefined(self):
         return self.defined

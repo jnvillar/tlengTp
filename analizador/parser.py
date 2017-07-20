@@ -81,11 +81,11 @@ def p_expr_lambda(p):
 
 def p_expr_type(p):
     'funcionType : TYPE funcImg'
-    p[0] = Tipo.Tipo(p[1], str(p[2]))
+    p[0] = Tipo.Tipo(p[1], p[2])
 
 def p_expr_type_img(p):
     'funcImg : ARROW funcionType'
-    p[0] = Tipo.Tipo(str(p[2]))
+    p[0] = Tipo.Tipo(p[2])
 
 def p_expr_type_img_empty(p):
     'funcImg : '

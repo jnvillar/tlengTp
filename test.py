@@ -53,7 +53,7 @@ assert (str(expected7) == str(res7))
 
 exp_str8 = '\\x:Nat->Nat.x'
 res8 = parse(exp_str8)
-expected8 = '\\x:Nat->Nat.x:Nat->Nat->Nat->Nat'
+expected8 = '\\x:Nat->Nat.x:(Nat->Nat)->(Nat->Nat)'
 
 assert (str(expected8) == str(res8))
 
@@ -61,7 +61,7 @@ assert (str(expected8) == str(res8))
 
 exp_str9 = '\\x:Nat.\\y:Nat.(\\z:Bool.if z then x else 0)'
 res9 = parse(exp_str9)
-expected9 = '\\x:Nat.\\y:Nat.(\\z:Bool.if z then x else 0):Nat->Nat->Bool->Nat'
+expected9 = '\\x:Nat.\\y:Nat.(\\z:Bool.if z then x else 0):Nat->(Nat->(Bool->Nat))'
 
 assert (str(expected9) == str(res9))
 

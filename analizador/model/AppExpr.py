@@ -38,7 +38,7 @@ class AppExpr(object):
         if self.exprIzq.getType().getImg() == None:
             raise Exception("ERROR: La parte izquierda de la aplicacion no es una funcion con dominio en " + str(self.exprDer.getType()))
         
-        self.type = self.exprIzq.getType().getImg()
+        self.type = Tipo(str(self.exprIzq.getType().getImg()))
 
 
     def getType(self):

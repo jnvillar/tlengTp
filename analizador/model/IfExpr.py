@@ -25,7 +25,7 @@ class IfExpr(object):
             toPrint = toPrint + ":" + str(self.type)
         return toPrint
 
-    def evaluate(self, context, value = None):
+    def evaluate(self, context, value=None):
         self.cond.evaluate(context)
         self.trueExpr.evaluate(context)
         self.falseExpr.evaluate(context)
@@ -38,20 +38,14 @@ class IfExpr(object):
         self.falseExpr.setExprTypes(context)
         self.type = self.trueExpr.getType()
 
-
-
-        ##print "IF Tipo True: "+str(self.trueExpr.getType())
-        ##print "IF Tipo False: "+str(self.falseExpr.getType())
         trueExprType = self.trueExpr.getType()
         falseExprType = self.falseExpr.getType()
-        print "trueExprType: "+str(trueExprType) + "clase: "+ trueExprType.__class__.__name__
-        print "falseExprType: "+str(falseExprType) + "clase: "+ falseExprType.__class__.__name__
-        if (trueExprType != falseExprType):
+
+        if trueExprType != falseExprType:
             raise Exception("Las expresiones del if no son del mismo tipo")
 
-        if (self.cond.getType() == Tipo('Bool')):
+        if self.cond.getType() == Tipo('Bool'):
             self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
-            
 
     def getType(self):
         return self.type
@@ -65,8 +59,8 @@ class IfExpr(object):
         return self.defined
 
     def differentType(trueExpr, falseExpr):
-        if (trueExpr.getType().getDom() != 'Var') & (falseExpr.getType().getDom() != 'Var'):
-            if (str(trueExpr.getType()) != str(falseExpr.getType())):
+        if trueExpr.getType().getDom() != 'Var' & falseExpr.getType().getDom() != 'Var':
+            if str(trueExpr.getType()) != str(falseExpr.getType()):
                 return True
 
     def validType(self):

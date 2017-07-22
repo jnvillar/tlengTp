@@ -12,9 +12,9 @@ class IsZeroExpr(object):
     def __str__(self):
         toPrint = ""
         if not self.defined:
-            toPrint = "IsZero("
+            toPrint = toPrint + "IsZero("
             toPrint = toPrint + str(self.expr)
-            toPrint = ")"
+            toPrint = toPrint + ")"
         else:
             toPrint = toPrint + str(self.value)
 

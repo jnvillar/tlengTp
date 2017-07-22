@@ -8,7 +8,7 @@ class NatExpr(object):
         self.initialExpression = False
         self.defined = True
 
-    def evaluate(self, context):
+    def evaluate(self, context, value = None):
         pass
 
     def getType(self):

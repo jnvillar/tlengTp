@@ -8,7 +8,7 @@ class AppExpr(object):
         self.exprDer = expr2
         self.type = None
         self.initialExpression = False
-        self.value = None
+        self.value = self
         self.defined = False
         self.name = None
 
@@ -16,19 +16,31 @@ class AppExpr(object):
         global g_count
         count = g_count
         g_count = g_count+1
-        self.exprIzq.evaluate(context)
-        self.exprDer.evaluate(context)
+
+        if self.exprIzq.getValue() != None:
+            self.exprIzq.getValue().evaluate(context)
+        else:
+            self.exprIzq.evaluate(context)
+        if self.exprDer.getValue() != None and not isinstance(self.exprDer.getValue(), int):
+            self.exprDer.getValue().evaluate(context)
+        else:
+            self.exprDer.evaluate(context)
+        #self.exprIzq.evaluate(context)
+        #self.exprDer.evaluate(context)
         valIzq = self.exprIzq.getValue()
         valDer = self.exprDer.getValue()
+        print str(count)+". AppExpr - ExprLeft: "+str(self.exprIzq)
+        print str(count)+". AppExpr - ExprLeft type: "+str(self.exprIzq.__class__.__name__)
         print str(count)+". AppExpr - ExprLeft Value: "+str(valIzq)
-        print str(count)+". AppExpr - ExprLeft type: "+str(valIzq.__class__.__name__)
+        print str(count)+". AppExpr - ExprLeft Value type: "+str(valIzq.__class__.__name__)
         print str(count)+". AppExpr - RightVal: "+str(valDer)
-        if valDer != None and valIzq != None:
-            #print str(count)+". AppExpr - VarName: "+str(self.exprIzq.getValue().getName())
+        #if valDer != None and valIzq != None:
+        if not (valDer.__class__.__name__ == 'VarExpr' and valDer.getValue() == valDer):
+            print str(count)+". AppExpr - VarName: "+str(self.exprIzq.getValue().getName())
             context[self.exprIzq.getValue().getName()] = valDer
             self.defined = True
             #self.name = self.exprIzq.getValue().getName()
-            self.exprIzq.getValue().evaluate(context)
+            self.exprIzq.getValue().evaluate(context, count)
             self.value = self.exprIzq.getValue()
 
         
@@ -59,8 +71,6 @@ class AppExpr(object):
         return self.type
 
     def getValue(self):
-        if not self.defined:
-            return self
         return self.value
 
 

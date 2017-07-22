@@ -22,15 +22,21 @@ class LambdaExpr(object):
         return toPrint
 
     def getName(self):
-        print "LambdaExpr iDefined: "+str(self.defined)+" - Type hijo: "+str(self.expr.__class__.__name__)
         if not self.defined:
             return str(self.var)
         return self.expr.getName()
 
     def evaluate(self, context, value = None):
+
         if self.var.getName() in context:
             self.defined = True
-        self.expr.evaluate(context)
+        if value == 0:
+            print "LambdaExpr - isDefined: "+str(self.defined)
+            print "LambdaExpr - Hijo: "+str(self.expr)
+            print "LambdaExpr - Value: "+str(self.getValue())
+            print "LambdaExpr - Type: "+str(self.expr.getValue().__class__.__name__)
+            
+        self.expr.evaluate(context, value)
         self.value = self.expr.getValue()
         #print "LambdaExpr - Value: "+str(value)
 

@@ -26,9 +26,16 @@ class IfExpr(object):
         return toPrint
 
     def evaluate(self, context, value=None):
-        self.cond.evaluate(context)
-        self.trueExpr.evaluate(context)
-        self.falseExpr.evaluate(context)
+        if value == 0:
+            print "IfExpr - CondType: "+str(self.cond.__class__.__name__)
+            print "IfExpr - TrueType: "+str(self.trueExpr.__class__.__name__)
+            print "IfExpr - FalseType: "+str(self.falseExpr.__class__.__name__)
+        print str(self.cond.__class__.__name__)
+        print str(self.cond)
+        self.cond.evaluate(context,0)
+        #self.cond.getValue().evaluate(context,0)
+        self.trueExpr.evaluate(context,0)
+        self.falseExpr.evaluate(context,0)
         if self.cond.isDefined() and self.trueExpr.isDefined() and self.falseExpr.isDefined():
             self.defined = True
 

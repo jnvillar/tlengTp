@@ -21,6 +21,11 @@ class ParanthesisExpr(object):
         return toPrint
 
     def evaluate(self, context, value=None):
+        if value == 0:
+            print "ParenthesisExpr - isDefined: "+str(self.defined)
+            print "ParenthesisExpr - Hijo: "+str(self.expr)
+            print "ParenthesisExpr - Value: "+str(self.getValue())
+            print "ParenthesisExpr - Type: "+str(self.expr.getValue().__class__.__name__)
         self.expr.evaluate(context, value)
         if (self.expr.isDefined()):
             self.value = self.expr.getValue()

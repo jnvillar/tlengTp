@@ -21,11 +21,15 @@ class LambdaExpr(object):
 
         return toPrint
 
+    def getName(self):
+        return str(self.var)
+
     def evaluate(self, context, value = None):
-        context[self.var.getName()] = value
-        if value != None:
+        if self.var.getName() in context:
             self.defined = True
-        self.expr.evaluate(context)        
+        self.expr.evaluate(context)
+        self.value = self.expr.getValue()
+        #print "LambdaExpr - Value: "+str(value)
 
 
     def setExprTypes(self, context):

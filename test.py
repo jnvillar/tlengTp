@@ -75,11 +75,31 @@ assert (str(expected10) == str(res10))
 
 
 
-
 exp_str11 = '(\\x:Nat.\\y:Nat.succ(x)) 3'
 res11 = parse(exp_str11)
 expected11 = '\y:Nat.succ(succ(succ(succ(0)))):Nat->Nat'
 assert (str(expected11) == str(res11))
+
+
+exp_str12 = '\\x:Nat.if true then 1 else 0'
+res12 = parse(exp_str12)
+expected12 = '\\x:Nat.succ(0):Nat->Nat'
+assert (str(expected12) == str(res12))
+
+
+
+exp_str13 = '(\\y:Nat.(\\z:Bool.if z then (\\j:Nat.succ(j)) y else 0)) 8'
+res13 = parse(exp_str13)
+expected13 = '(\\z:Bool.if z then succ(succ(succ(succ(succ(succ(succ(succ(succ(0))))))))) else 0):Bool->Nat'
+assert (str(expected13) == str(res13))
+
+
+exp_str14 = '(\\x:Nat->Nat.\\y:Nat.(\\z:Bool.if z then x y else 0)) (\\j:Nat.succ(j))'
+res14 = parse(exp_str14)
+expected14 = '\\y:Nat.(\\z:Bool.if z then (\\j:Nat.succ(j)) y else 0):Nat->(Bool->Nat)'
+assert (str(expected14) == str(res14))
+
+
 
 
 

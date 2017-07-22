@@ -41,3 +41,6 @@ class ParanthesisExpr(object):
 
     def isDefined(self):
         return self.defined
+
+    def getName(self):
+        return self.expr.getName()

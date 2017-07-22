@@ -18,6 +18,7 @@ class VarExpr(object):
         return toPrint
 
     def evaluate(self, context, value = None):
+        #print "VarExpr: "+str(context)
         if self.name in context and context[self.name] != None:
             # self.expr = context[self.name]
             # self.value = self.expr.getValue()
@@ -32,8 +33,8 @@ class VarExpr(object):
             self.type = context[self.name]
 
     def getValue(self):
-        if not self.defined:
-            return self
+        #if not self.defined:
+        #    return self
         return self.value
 
     def getType(self):

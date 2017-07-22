@@ -36,7 +36,7 @@ class IsZeroExpr(object):
 
     def setExprTypes(self, context):
         self.expr.setExprTypes(context)
-        if self.expr.getType() == Tipo('Nat'):git
+        if self.expr.getType() == Tipo('Nat'):
             self.type = Tipo('Bool')
 
     def getType(self):

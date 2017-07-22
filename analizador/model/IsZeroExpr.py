@@ -1,12 +1,13 @@
 from Tipo import *
 
+
 class IsZeroExpr(object):
     def __init__(self, expr):
+        self.value = None
         self.type = None
         self.defined = False
         self.expr = expr
         self.initialExpression = False
-
 
     def __str__(self):
         toPrint = ""
@@ -15,13 +16,12 @@ class IsZeroExpr(object):
             toPrint = toPrint + str(self.expr)
             toPrint = ")"
         else:
-            print self.value == 0
+            toPrint = toPrint + str(self.value)
 
         if self.initialExpression:
             toPrint = toPrint + ":" + str(self.type)
 
-        print toPrint
-
+        return toPrint
 
     def evaluate(self, context):
         self.expr.evaluate(context)
@@ -29,10 +29,8 @@ class IsZeroExpr(object):
             self.value = self.expr.getValue() == 0
             self.defined = True
 
-
     def isDefined(self):
         return self.defined
-
 
     def setExprTypes(self, context):
         self.expr.setExprTypes(context)
@@ -42,6 +40,5 @@ class IsZeroExpr(object):
     def getType(self):
         return self.type
 
-
     def getValue(self):
-        return self.value == 0
+        return self.value

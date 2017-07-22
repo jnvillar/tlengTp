@@ -13,10 +13,18 @@ class AppExpr(object):
         self.name = None
 
     def evaluate(self, context, value=None):
+        if self.value != self:
+            self.value.evaluate(context, value)
+        else:
+            self.evaluateExpr(context, value)
+
+        
+
+        
+    def evaluateExpr(self, context, value=None):
         global g_count
         count = g_count
         g_count = g_count+1
-
         if self.exprIzq.getValue() != None:
             self.exprIzq.getValue().evaluate(context)
         else:
@@ -43,7 +51,6 @@ class AppExpr(object):
             self.exprIzq.getValue().evaluate(context, count)
             self.value = self.exprIzq.getValue()
 
-        
 
     def __str__(self):
         toPrint = ""

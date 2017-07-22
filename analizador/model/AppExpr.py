@@ -18,22 +18,17 @@ class AppExpr(object):
         g_count = g_count+1
         self.exprIzq.evaluate(context)
         self.exprDer.evaluate(context)
+        valIzq = self.exprIzq.getValue()
         valDer = self.exprDer.getValue()
-        if valDer != None:
-            context[self.exprIzq.getName()] = valDer
+        if valDer != None and valIzq != None:
+            context[self.exprIzq.getValue().getName()] = valDer
             self.defined = True
             self.name = self.exprIzq.getName()
-        print str(count)+". AppExpr - RightVal: "+str(valDer)
-        
-        print str(count)+". AppExpr - ExprLeft type: "+str(self.exprIzq.getValue().__class__.__name__)
-        if self.exprIzq.getValue() != None:
-            print str(count)+". AppExpr - ExprLeft type: "+str(self.exprIzq.getValue().getName())
-        print str(count)+". AppExpr - ExprLeft Value before evaluate: "+str(self.exprIzq.getValue())
-        print str(count)+". AppExpr - Name: "+str(self.exprIzq.getName())
-        self.exprIzq.evaluate(context)
-        self.value = self.exprIzq.getValue()
-        print str(count)+". AppExpr - ExprLeft Value: "+str(self.value)
-        #if(self.exprDer.getValue() in context or self.exprDer.__class__.__name__ != 'VarExpr' or self.exprDer.isDefined()):
+            self.exprIzq.getValue().evaluate(context)
+            self.value = self.exprIzq.getValue()
+        #print str(count)+". AppExpr - RightVal: "+str(valDer)
+        #print str(count)+". AppExpr - ExprLeft Value before evaluate: "+str(self.exprIzq.getValue())
+        #print str(count)+". AppExpr - ExprLeft Value: "+str(self.value)
         
 
     def __str__(self):
@@ -69,3 +64,7 @@ class AppExpr(object):
 
     def getName(self):
         return self.name
+
+    def isDefined(self):
+        return self.defined
+

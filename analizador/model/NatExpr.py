@@ -1,10 +1,10 @@
-from analizador.model import Tipo
+from Tipo import *
 
 
 class NatExpr(object):
     def __init__(self, value):
         self.value = int(value)
-        self.type = Tipo.Tipo("Nat")
+        self.type = Tipo("Nat")
         self.initialExpression = False
         self.defined = True
 

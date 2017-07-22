@@ -1,4 +1,4 @@
-from analizador.model.oldModels import Tipo
+from Tipo import *
 
 
 class ZeroExpr(object):

@@ -10,7 +10,6 @@ class ParanthesisExpr(object):
         self.defined = False
 
     def __str__(self):
-        toPrint = ""
         if not self.defined:
             toPrint = "(" + str(self.expr) + ")"
         else:
@@ -21,8 +20,8 @@ class ParanthesisExpr(object):
 
         return toPrint
 
-    def evaluate(self, context):
-        self.expr.evaluate(context)
+    def evaluate(self, context, value=None):
+        self.expr.evaluate(context, value)
         if (self.expr.isDefined()):
             self.value = self.expr.getValue()
             self.defined = True
@@ -31,6 +30,8 @@ class ParanthesisExpr(object):
         return self.type
 
     def getValue(self):
+        if not self.defined:
+            return self
         return self.value
 
     def setExprTypes(self, context):
@@ -39,3 +40,6 @@ class ParanthesisExpr(object):
 
     def isDefined(self):
         return self.defined
+
+    def getName(self):
+        return self.expr.getName()

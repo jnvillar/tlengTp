@@ -20,15 +20,17 @@ class AppExpr(object):
         self.exprDer.evaluate(context)
         valIzq = self.exprIzq.getValue()
         valDer = self.exprDer.getValue()
+        print str(count)+". AppExpr - ExprLeft Value: "+str(valIzq)
+        print str(count)+". AppExpr - ExprLeft type: "+str(valIzq.__class__.__name__)
+        print str(count)+". AppExpr - RightVal: "+str(valDer)
         if valDer != None and valIzq != None:
+            print str(count)+". AppExpr - VarName: "+str(self.exprIzq.getValue().getName())
             context[self.exprIzq.getValue().getName()] = valDer
             self.defined = True
-            self.name = self.exprIzq.getName()
+            self.name = self.exprIzq.getValue().getName()
             self.exprIzq.getValue().evaluate(context)
             self.value = self.exprIzq.getValue()
-        #print str(count)+". AppExpr - RightVal: "+str(valDer)
-        #print str(count)+". AppExpr - ExprLeft Value before evaluate: "+str(self.exprIzq.getValue())
-        #print str(count)+". AppExpr - ExprLeft Value: "+str(self.value)
+
         
 
     def __str__(self):

@@ -99,6 +99,11 @@ res14 = parse(exp_str14)
 expected14 = '\\y:Nat.(\\z:Bool.if z then (\\j:Nat.succ(j)) y else 0):Nat->(Bool->Nat)'
 assert (str(expected14) == str(res14))
 
+exp_str15 = '(\\x:Nat->Nat.\\y:Nat.(\\z:Bool.if z then x y else 0)) (\\j:Nat.succ(j)) 8'
+res15 = parse(exp_str15)
+expected15 = '(\\z:Bool.if z then succ(succ(succ(succ(succ(succ(succ(succ(succ(0))))))))) else 0):Bool->Nat'
+assert (str(expected15) == str(res15))
+
 
 
 

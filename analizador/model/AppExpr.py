@@ -32,10 +32,6 @@ class AppExpr(object):
             self.defined = True
             self.exprIzq.getValue().evaluate(context)
             self.value = self.exprIzq.getValue()
-            print
-            "AppExpr " + str(self.value)
-            print
-            "AppExpr " + str(self.value.__class__.__name__)
 
     def __str__(self):
         toPrint = ""
@@ -66,7 +62,6 @@ class AppExpr(object):
 
     def getName(self):
         return self.name
-        # return self.value.getName()
 
     def isDefined(self):
         return self.defined

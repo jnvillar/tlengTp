@@ -5,7 +5,7 @@ class VarExpr(object):
     def __init__(self, name):
         self.name = name
         self.expr = None
-        self.value = None
+        self.value = self
         self.type = None
         self.defined = False
 
@@ -30,8 +30,6 @@ class VarExpr(object):
             self.type = context[self.name]
 
     def getValue(self):
-        if not self.defined:
-            return self
         return self.value
 
     def getType(self):

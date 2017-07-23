@@ -4,7 +4,7 @@ from Tipo import *
 
 class IfExpr(object):
     def __init__(self, cond, trueExpr, falseExpr):
-        self.value = None
+        self.value = self
         self.type = None
         self.cond = cond
         self.trueExpr = trueExpr
@@ -26,50 +26,36 @@ class IfExpr(object):
         return toPrint
 
     def evaluate(self, context, value=None):
-        if value == 0:
-            print "IfExpr - CondType: "+str(self.cond.__class__.__name__)
-            print "IfExpr - TrueType: "+str(self.trueExpr.__class__.__name__)
-            print "IfExpr - FalseType: "+str(self.falseExpr.__class__.__name__)
-        print str(self.cond.__class__.__name__)
-        print str(self.cond)
+        if self.value != self:
+            self.value.evaluate(context)
+        else:
+            self.evaluateExpr(context)
+
+    def evaluateExpr(self, context):
         self.cond.evaluate(context,0)
-        #self.cond.getValue().evaluate(context,0)
         self.trueExpr.evaluate(context,0)
         self.falseExpr.evaluate(context,0)
         if self.cond.isDefined() and self.trueExpr.isDefined() and self.falseExpr.isDefined():
             self.defined = True
+            self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
 
     def setExprTypes(self, context):
         self.cond.setExprTypes(context)
         self.trueExpr.setExprTypes(context)
         self.falseExpr.setExprTypes(context)
         self.type = self.trueExpr.getType()
-
         trueExprType = self.trueExpr.getType()
         falseExprType = self.falseExpr.getType()
-
         if trueExprType != falseExprType:
             raise Exception("Las expresiones del if no son del mismo tipo")
-
-        if self.cond.getType() == Tipo('Bool'):
-            self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
+        if self.cond.getType() != Tipo('Bool'):
+            raise Exception("Las condicion en el if debe ser de tipo Bool")
 
     def getType(self):
         return self.type
 
     def getValue(self):
-        if not self.defined:
-            return self
         return self.value
 
     def isDefined(self):
         return self.defined
-
-    def differentType(trueExpr, falseExpr):
-        if trueExpr.getType().getDom() != 'Var' & falseExpr.getType().getDom() != 'Var':
-            if str(trueExpr.getType()) != str(falseExpr.getType()):
-                return True
-
-    def validType(self):
-        if self.differentType(self.trueExpr, self.falseExpr):
-            raise Exception("Las dos opciones del if deben tener el mismo tipo")

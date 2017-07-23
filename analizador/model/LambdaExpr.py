@@ -27,18 +27,10 @@ class LambdaExpr(object):
         return self.expr.getName()
 
     def evaluate(self, context, value = None):
-
         if self.var.getName() in context:
             self.defined = True
-        if value == 0:
-            print "LambdaExpr - isDefined: "+str(self.defined)
-            print "LambdaExpr - Hijo: "+str(self.expr)
-            print "LambdaExpr - Value: "+str(self.getValue())
-            print "LambdaExpr - Type: "+str(self.expr.getValue().__class__.__name__)
-            
-        self.expr.evaluate(context, value)
+        self.expr.evaluate(context)
         self.value = self.expr.getValue()
-        #print "LambdaExpr - Value: "+str(value)
 
 
     def setExprTypes(self, context):

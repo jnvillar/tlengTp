@@ -27,13 +27,6 @@ def p_expression_initial(p):
     p[1].setExprTypes({})
     p[1].evaluate({})
     p[1].initialExpression = True
-    print "p[1]: "+str(p[1].__class__.__name__)+" "+str(p[1])
-    #print "p[1] name: "+str(p[1].getName())
-    #print "p[1] value: "+str(p[1].getValue().__class__.__name__)+" "+str(p[1].getValue())
-    #print "p[1] value name: "+str(p[1].getValue().getName())
-
-    # print "p[1] value value: "+str(p[1].getValue().getValue())
-    # print "p[1] value value name: "+str(p[1].getValue().getValue().getName())
     p[0] = p[1]    
 
 def p_expr_application_function(p):

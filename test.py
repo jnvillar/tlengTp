@@ -107,11 +107,13 @@ expected15 = '(\\z:Bool.if z then succ(succ(succ(succ(succ(succ(succ(succ(succ(0
 assert (str(expected15) == str(res15))
 
 
-
+print "Test 16:"
 exp_str16 = '(\\x:Nat->Nat.\\y:Nat.(\\z:Bool.if z then x y else 0)) (\\j:Nat.succ(j)) 8 true'
 res16 = parse(exp_str16)
 expected16 = 'succ(succ(succ(succ(succ(succ(succ(succ(succ(0))))))))):Nat'
 assert (str(expected16) == str(res16))
+
+
 
 
 

@@ -942,34 +942,34 @@ state 37
     (12) expr -> . VARIABLE
     (13) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
 
-    OPENPARENTHESIS reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    ZERO            reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    PRED            reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    SUCC            reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    ISZERO          reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    NUMBER          reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    TRUE            reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    FALSE           reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    VARIABLE        reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
-    BACKSLASH       reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
     $end            reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
     2DOTS           reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
     CLOSEPARENTHESIS reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
     THEN            reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
     ELSE            reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .)
+    OPENPARENTHESIS shift and go to state 10
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 12
+    FALSE           shift and go to state 1
     IF              shift and go to state 13
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
 
+  ! OPENPARENTHESIS [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
+  ! ZERO            [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
+  ! PRED            [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
+  ! SUCC            [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
+  ! ISZERO          [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
+  ! NUMBER          [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
+  ! TRUE            [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
+  ! FALSE           [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
   ! IF              [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
-  ! OPENPARENTHESIS [ shift and go to state 10 ]
-  ! ZERO            [ shift and go to state 7 ]
-  ! PRED            [ shift and go to state 8 ]
-  ! SUCC            [ shift and go to state 4 ]
-  ! ISZERO          [ shift and go to state 9 ]
-  ! NUMBER          [ shift and go to state 5 ]
-  ! TRUE            [ shift and go to state 12 ]
-  ! FALSE           [ shift and go to state 1 ]
-  ! VARIABLE        [ shift and go to state 6 ]
-  ! BACKSLASH       [ shift and go to state 2 ]
+  ! VARIABLE        [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
+  ! BACKSLASH       [ reduce using rule 13 (expr -> BACKSLASH expr 2DOTS funcionType DOT expr .) ]
 
     expr                           shift and go to state 15
 
@@ -997,33 +997,33 @@ state 39
     (12) expr -> . VARIABLE
     (13) expr -> . BACKSLASH expr 2DOTS funcionType DOT expr
 
-    OPENPARENTHESIS reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    ZERO            reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    PRED            reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    SUCC            reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    ISZERO          reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    NUMBER          reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    TRUE            reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    FALSE           reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    IF              reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    VARIABLE        reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
-    BACKSLASH       reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
     $end            reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
     2DOTS           reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
     CLOSEPARENTHESIS reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
     THEN            reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
     ELSE            reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .)
+    OPENPARENTHESIS shift and go to state 10
+    ZERO            shift and go to state 7
+    PRED            shift and go to state 8
+    SUCC            shift and go to state 4
+    ISZERO          shift and go to state 9
+    NUMBER          shift and go to state 5
+    TRUE            shift and go to state 12
+    FALSE           shift and go to state 1
+    IF              shift and go to state 13
+    VARIABLE        shift and go to state 6
+    BACKSLASH       shift and go to state 2
 
-  ! OPENPARENTHESIS [ shift and go to state 10 ]
-  ! ZERO            [ shift and go to state 7 ]
-  ! PRED            [ shift and go to state 8 ]
-  ! SUCC            [ shift and go to state 4 ]
-  ! ISZERO          [ shift and go to state 9 ]
-  ! NUMBER          [ shift and go to state 5 ]
-  ! TRUE            [ shift and go to state 12 ]
-  ! FALSE           [ shift and go to state 1 ]
-  ! IF              [ shift and go to state 13 ]
-  ! VARIABLE        [ shift and go to state 6 ]
-  ! BACKSLASH       [ shift and go to state 2 ]
+  ! OPENPARENTHESIS [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! ZERO            [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! PRED            [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! SUCC            [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! ISZERO          [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! NUMBER          [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! TRUE            [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! FALSE           [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! IF              [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! VARIABLE        [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! BACKSLASH       [ reduce using rule 11 (expr -> IF expr THEN expr ELSE expr .) ]
 
     expr                           shift and go to state 15

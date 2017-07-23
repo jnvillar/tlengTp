@@ -101,6 +101,7 @@ res14 = parse(exp_str14)
 expected14 = '\\y:Nat.(\\z:Bool.if z then (\\j:Nat.succ(j)) y else 0):Nat->(Bool->Nat)'
 assert (str(expected14) == str(res14))
 
+
 exp_str15 = '(\\x:Nat->Nat.\\y:Nat.(\\z:Bool.if z then x y else 0)) (\\j:Nat.succ(j)) 8'
 res15 = parse(exp_str15)
 expected15 = '(\\z:Bool.if z then succ(succ(succ(succ(succ(succ(succ(succ(succ(0))))))))) else 0):Bool->Nat'
@@ -114,22 +115,18 @@ expected16 = 'succ(succ(succ(succ(succ(succ(succ(succ(succ(0))))))))):Nat'
 assert (str(expected16) == str(res16))
 
 
+print "Test 17:"
+exp_str17 = '(\\x:Nat->Bool.\\y:Nat.x y)'
+res17 = parse(exp_str17)
+expected17 = '(\\x:Nat->Bool.\\y:Nat.x y):(Nat->Bool)->(Nat->Bool)'
+assert (str(expected17) == str(res17))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print "Test 18:"
+exp_str18 = '(\\x:Nat.true) (if true then (\\y:Nat.succ(0)) 0 else (\\z:Nat.succ(0)) 0)'
+res18 = parse(exp_str18)
+expected18 = 'true:Bool'
+assert (str(expected18) == str(res18))
 
 
 

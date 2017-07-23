@@ -17,8 +17,8 @@ from analizador.model import ParenthesisExpr
 
 precedence = [
     ('left', 'LAMBDA'),
-    ('left', 'IF'),
-    ('left', 'APP'),
+    ('left', 'EIF'),
+    ('left', 'APP', 'ISZERO', 'PRED', 'SUCC', 'ZERO', 'TRUE', 'FALSE', 'IF', 'OPENPARENTHESIS', 'NUMBER', 'VARIABLE', 'BACKSLASH'),
 ]
 
 
@@ -66,7 +66,7 @@ def p_expr_false(p):
     p[0] = BooleanExpr.BooleanExpr(False)
 
 def p_expr_if_then_else(p):
-    'expr : IF expr THEN expr ELSE expr %prec IF'
+    'expr : IF expr THEN expr ELSE expr %prec EIF'
     p[0] = IfExpr.IfExpr(p[2], p[4], p[6])
 
 def p_expr_variable(p):

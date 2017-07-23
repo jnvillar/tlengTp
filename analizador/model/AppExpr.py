@@ -43,7 +43,7 @@ class AppExpr(object):
         if self.initialExpression:
             toPrint = toPrint + ":" + str(self.type)
 
-        return toPrinta
+        return toPrint
 
     def setExprTypes(self, context):
         self.exprDer.setExprTypes(context)

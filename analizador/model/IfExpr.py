@@ -49,7 +49,7 @@ class IfExpr(object):
         if trueExprType != falseExprType:
             raise Exception("Las expresiones del if no son del mismo tipo")
         if self.cond.getType() != Tipo('Bool'):
-            raise Exception("Las condicion en el if debe ser de tipo Bool")
+            raise Exception("Las condicion en el if no es de tipo Bool")
 
     def getType(self):
         return self.type

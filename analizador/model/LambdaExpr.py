@@ -6,7 +6,7 @@ class LambdaExpr(object):
         self.tipoVar = tipoVar
         self.expr = expr
         self.type = None
-        self.value = None
+        self.value = self
         self.defined = False
         self.initialExpression = False
 
@@ -27,11 +27,16 @@ class LambdaExpr(object):
         return self.expr.getName()
 
     def evaluate(self, context, value = None):
+        if self.value != self:
+            self.value.evaluate(context)
+        else:
+            self.evaluateExpr(context)
+
+    def evaluateExpr(self,context):
         if self.var.getName() in context:
             self.defined = True
+            self.value = self.expr.getValue()
         self.expr.evaluate(context)
-        self.value = self.expr.getValue()
-
 
     def setExprTypes(self, context):
         if self.var.getName() in context:
@@ -48,7 +53,5 @@ class LambdaExpr(object):
         return self.defined
 
     def getValue(self):
-        if not self.defined:
-            return self
         return self.value
 

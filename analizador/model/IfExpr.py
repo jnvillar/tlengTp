@@ -40,10 +40,6 @@ class IfExpr(object):
         if self.cond.isDefined() and self.trueExpr.isDefined() and self.falseExpr.isDefined():
             self.defined = True
             self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
-            print
-            "IfExpr " + str(self.value)
-            print
-            "IfExpr " + str(self.value.__class__.__name__)
 
     def setExprTypes(self, context):
         self.cond.setExprTypes(context)

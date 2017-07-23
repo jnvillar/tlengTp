@@ -28,7 +28,8 @@ class LambdaExpr(object):
 
     def evaluate(self, context, value = None):
         if self.value != self:
-            self.value.evaluate(context)
+            if(not isinstance(self.value,int) or isinstance(self.value,bool)):
+                self.value.evaluate(context)
         else:
             self.evaluateExpr(context)
 

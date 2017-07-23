@@ -14,7 +14,8 @@ class AppExpr(object):
 
     def evaluate(self, context, value=None):
         if self.value != self:
-            self.value.evaluate(context)
+            if(not isinstance(self.value,int) or isinstance(self.value,bool)):
+                self.value.evaluate(context)
         else:
             self.evaluateExpr(context)
 
@@ -31,6 +32,8 @@ class AppExpr(object):
             self.defined = True
             self.exprIzq.getValue().evaluate(context)
             self.value = self.exprIzq.getValue()
+            print "AppExpr "+str(self.value)
+            print "AppExpr "+str(self.value.__class__.__name__)
 
 
     def __str__(self):

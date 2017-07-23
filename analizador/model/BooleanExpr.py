@@ -3,13 +3,14 @@ from Tipo import *
 
 class BooleanExpr(object):
     def __init__(self, value):
-        self.value = value
+        self.realValue = value
+        self.value = self
         self.type = Tipo("Bool")
         self.initialExpression = False
         self.defined = True
 
     def __str__(self):
-        toPrint = str(self.value).lower()
+        toPrint = str(self.realValue).lower()
 
         if(self.initialExpression):
             toPrint = toPrint+":"+str(self.type)
@@ -17,7 +18,7 @@ class BooleanExpr(object):
 
 
     def getValue(self):
-    	return self.value
+    	return self.realValue
 
     def getType(self):
     	return self.type

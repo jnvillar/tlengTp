@@ -39,7 +39,7 @@ def p_expr_parenthesis(p):
 
 def p_expr_zero(p):
     'expr : ZERO'
-    p[0] = ZeroExpr.ZeroExpr()
+    p[0] = NatExpr.NatExpr(0)
 
 def p_expr_pred(p):
     'expr : PRED OPENPARENTHESIS expr CLOSEPARENTHESIS'

@@ -27,17 +27,20 @@ class IfExpr(object):
 
     def evaluate(self, context, value=None):
         if self.value != self:
-            self.value.evaluate(context)
+            if(not isinstance(self.value,int) or isinstance(self.value,bool)):
+                self.value.evaluate(context)
         else:
             self.evaluateExpr(context)
 
     def evaluateExpr(self, context):
-        self.cond.evaluate(context,0)
-        self.trueExpr.evaluate(context,0)
-        self.falseExpr.evaluate(context,0)
+        self.cond.evaluate(context)
+        self.trueExpr.evaluate(context)
+        self.falseExpr.evaluate(context)
         if self.cond.isDefined() and self.trueExpr.isDefined() and self.falseExpr.isDefined():
             self.defined = True
             self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
+            print "IfExpr "+str(self.value)
+            print "IfExpr "+str(self.value.__class__.__name__)
 
     def setExprTypes(self, context):
         self.cond.setExprTypes(context)

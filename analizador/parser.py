@@ -1,214 +1,103 @@
 """Parser LR(1) del tp."""
 import ply.yacc as yacc
-import sys
 from .lexer import tokens
-from model import *
-
-precedence = []
-
-
-debug = True
-
-def p_expression_zero(p):
-    'expression : ZERO'
-    e = Element(0,'Nat')
-    p[0] = e
-
-def p_expression_true(p):
-	'expression : TRUE'
-	e = Element(True,'Bool')
-	p[0] = e
-
-def p_expression_false(p):
-	'expression : FALSE'
-	e = Element(False,'Bool')
-	p[0] = e
-
-def p_expression_if_then_else(p):
-    'expression : IF expression THEN expression ELSE expression'
-    if(debug): print('p_expression_if_then_else')
-    e = Element()
-    
-    if (p[2].estaDefinido and p[4].estaDefinido and p[6].estaDefinido):
-        if (p[2].error != None):
-            e.error = p[2].error
-        elif (p[4].error != None):
-            e.error = p[2].error
-        elif (p[6].error != None):
-            e.error = p[2].error   
-        else:        
-            if(str(p[2].tipo) != 'Bool'):
-                e.error = 'ERROR: El if debe tener una condicion'
-            if(str(p[4].tipo) != str(p[6].tipo)):
-                e.error = 'ERROR: Las dos opciones del if deben tener el mismo tipo'
-        if(e.error == None):    
-            e.valor = ifs(p[2].valor, p[4].valor, p[6].valor)
-            e.tipo = p[4].tipo
-    else:
-        e.valor = ifs
-        e.hijo1 = p[2]
-        e.hijo2 = p[4]
-        e.hijo3 = p[6]
+from analizador.model import AppExpr
+from analizador.model import IfExpr
+from analizador.model import IsZeroExpr
+from analizador.model import LambdaExpr
+from analizador.model import NatExpr
+from analizador.model import PredExpr
+from analizador.model import SuccExpr
+from analizador.model import Tipo
+from analizador.model import VarExpr
+from analizador.model import ZeroExpr
+from analizador.model import BooleanExpr
+from analizador.model import ParenthesisExpr
 
 
-    p[0] = e
+precedence = [
+    ('left', 'LAMBDA'),
+    ('left', 'EIF'),
+    ('left', 'APP', 'ISZERO', 'PRED', 'SUCC', 'ZERO', 'TRUE', 'FALSE', 'IF', 'OPENPARENTHESIS', 'NUMBER', 'VARIABLE', 'BACKSLASH'),
+]
 
-def p_expression_number(p):
-    'expression : NUMBER'
-    e = Element(p[1],'Nat')
-    p[0] = e
 
-def p_expression_type(p):
+def p_expression_initial(p):
+    'expression : expr'
+    p[1].setExprTypes({})
+    p[1].evaluate({})
+    p[1].initialExpression = True
+    p[0] = p[1]    
+
+def p_expr_application_function(p):
+    'expr :  expr expr %prec APP'
+    p[0] = AppExpr.AppExpr(p[1],p[2])
+
+def p_expr_parenthesis(p):
+    'expr : OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    p[0] = ParenthesisExpr.ParanthesisExpr(p[2])
+
+def p_expr_zero(p):
+    'expr : ZERO'
+    p[0] = NatExpr.NatExpr(0)
+
+def p_expr_pred(p):
+    'expr : PRED OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    p[0] = PredExpr.PredExpr(p[3])
+
+def p_expr_succ(p):
+    'expr : SUCC OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    p[0] = SuccExpr.SuccExpr(p[3])
+
+def p_expr_is_zero(p):
+    'expr : ISZERO OPENPARENTHESIS expr CLOSEPARENTHESIS'
+    p[0] = IsZeroExpr.IsZeroExpr(p[3])
+
+def p_expr_number(p):
+    'expr : NUMBER'
+    p[0] = NatExpr.NatExpr(p[1])
+
+def p_expr_true(p):
+    'expr : TRUE'
+    p[0] = BooleanExpr.BooleanExpr(True)
+
+def p_expr_false(p):
+    'expr : FALSE'
+    p[0] = BooleanExpr.BooleanExpr(False)
+
+def p_expr_if_then_else(p):
+    'expr : IF expr THEN expr ELSE expr %prec EIF'
+    p[0] = IfExpr.IfExpr(p[2], p[4], p[6])
+
+def p_expr_variable(p):
+    'expr : VARIABLE'
+    p[0] = VarExpr.VarExpr(p[1])
+
+def p_expr_lambda(p):
+    'expr : BACKSLASH expr 2DOTS funcionType DOT expr %prec LAMBDA'
+    p[0] = LambdaExpr.LambdaExpr(p[2], p[4], p[6])
+
+
+
+def p_expr_type(p):
     'funcionType : TYPE funcImg'
-    e = Element()
-    t = Tipo(p[1])
-    if (p[2].tipo != None):
-        t.img = p[2].tipo
-    e.tipo = t
-    p[0] = e
+    p[0] = Tipo.Tipo(p[1], p[2])
 
-def p_expression_type_img(p):
+def p_expr_type_img(p):
     'funcImg : ARROW funcionType'
-    e = Element()
-    t = Tipo(p[2].tipo)
-    e.tipo = t
-    p[0] = e
+    p[0] = Tipo.Tipo(p[2])
 
-def p_expression_type_img_empty(p):
+def p_expr_type_img_empty(p):
     'funcImg : '
-    e = Element()
-    p[0] = e
+    p[0] = Tipo.Tipo(None)
 
-def p_expression_pred(p):
-    'expression : PRED OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    if(debug): print('p_expression_pred')
-
-    e = Element()
-    e.hijo1 = p[3]
-    if (p[3].estaDefinido):
-        if (str(p[3].tipo) =='Nat'):
-            e.valor = max(p[3].valor-1,0)
-        else:
-            e.error = "ERROR: pred espera un valor de tipo Nat"
-    else:
-         e.valor = pred
-         e.estaDefinido = False
-    
-    t = Tipo('Nat')
-    e.tipo = t
-    p[0] = e
-   
-def p_expression_succ(p):
-    'expression : SUCC OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    if(debug): print('p_expression_succ')
-    e = Element()
-    e.hijo1 = p[3]
-    if (p[3].estaDefinido):
-        if (str(p[3].tipo) =='Nat'):
-            e.valor = p[3].valor+1
-
-        else:
-            e.error = "ERROR: succ espera un valor de tipo Nat"
-    else:
-         e.valor = s
-         e.estaDefinido = False
-    
-    t = Tipo('Nat')
-    e.tipo = t
-    p[0] = e
-
-
-def p_expression_is_zero(p): 
-    'expression : ISZERO OPENPARENTHESIS expression CLOSEPARENTHESIS'
-    e = Element()
-    t = Tipo('Bool')
-    e.tipo = t
-    if p[3].estaDefinido:
-        if (str(p[3].tipo) =='Nat'):
-            if(p[3].valor == 0):
-                e.valor = True
-            else:
-                e.valor = False
-        else:
-            e.error = "ERROR: iszero espera un valor de tipo Nat"
-    else:
-        e.valor = False
-        e.estaDefinido = False
-    p[0] = e
-
-def p_expression_variable(p):
-    'expression : VARIABLE'
-    e = Element()
-    e.valor = p[1]
-    t = Tipo('Var')
-    e.tipo = t
-    e.estaDefinido = False
-    #e.error = "El termino no es cerrado (" + p[1] + " esta libre)"
-    p[0] = e
-
-def p_expression_lambda(p):
-    'expression : BACKSLASH expression 2DOTS funcionType DOT expression'
-    if(debug): print('p_expression_lambda')
-    e = Element()
-    img = p[4].tipo.dom
-    if(p[4].tipo.img != None):
-        img = p[4].tipo.img
-    #if(p[6].estaDefinido and img != p[6].tipo.dom ):
-    #    e.error = 'ERROR: func espera un valor de tipo '+p[6].tipo.dom
-    
-    e.valor = iden
-    t = Tipo(p[4].tipo, p[6].tipo)
-    e.tipo = t    
-    e.hijo1 = p[6]
-    e.hijo2 = p[2]
-    p[0] = e
-    
-def p_expression_application(p):
-    'expression :  OPENPARENTHESIS expression CLOSEPARENTHESIS expression_values'
-    if(debug): print('p_expression_application')
-
-    e = Element()
-    if (p[2].estaDefinido and p[4].estaDefinido):
-        if (p[2].error != None):
-            e.error = p[2].error
-        elif (p[4].error != None):
-            e.error = p[2].error  
-        else:
-            if(p[2].tipo.img == None or str(p[2].tipo.dom) != str(p[2].tipo)):
-                a = 0
-                #e.error = 'ERROR: La parte izquierda de la aplicacion (' + str(p[2]) + ') no es una funcion con dominio en ' + str(p[4].tipo)
-        if(e.error == None):
-            e.valor = p[2].evaluate(p[4].valor)
-            t = Tipo(p[2].tipo.img)
-            e.tipo = t
-    else:
-        e.valor = iden2
-        e.hijo1 = p[2]
-        e.hijo2 = p[4]
-    #if(p[4].estaDefinido and p[4].valor == None):
-    #    e.valor = iden
-    #    e.tipo = p[2].tipo
-    
-    p[0] = e
-
-def p_expression_values(p):
-    'expression_values : expression'
-    if(debug): print('p_expression_values')
-    p[0] = p[1]
-
-def p_expression_values_empty(p):
-    'expression_values : '
-    if(debug): print('p_expression_values_empty')
-    e = Element()
-    e.estaDefinido = False
-    p[0] = e
-    pass
 
 def p_error(p):
     parser.restart()
 
 # Build the parser
 parser = yacc.yacc(debug=True)
+
 
 def apply_parser(str):
     return parser.parse(str)

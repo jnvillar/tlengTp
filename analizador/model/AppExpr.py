@@ -16,7 +16,7 @@ class AppExpr(object):
 
     def evaluate(self, context, value=None):
         if self.value != self:
-            if(not isinstance(self.value,int) or isinstance(self.value,bool)):
+            if (not isinstance(self.value, int) or isinstance(self.value, bool)):
                 self.value.evaluate(context)
         else:
             self.evaluateExpr(context)
@@ -27,13 +27,15 @@ class AppExpr(object):
         valIzq = self.exprIzq.getValue()
         valDer = self.exprDer.getValue()
         if not (valDer.__class__.__name__ == 'VarExpr' and valDer.getValue() == valDer) and not (
-                valIzq.__class__.__name__ == 'VarExpr' and valIzq.getValue() == valIzq):
+                        valIzq.__class__.__name__ == 'VarExpr' and valIzq.getValue() == valIzq):
             context[self.exprIzq.getValue().getName()] = valDer
             self.defined = True
             self.exprIzq.getValue().evaluate(context)
             self.value = self.exprIzq.getValue()
-            print "AppExpr "+str(self.value)
-            print "AppExpr "+str(self.value.__class__.__name__)
+            print
+            "AppExpr " + str(self.value)
+            print
+            "AppExpr " + str(self.value.__class__.__name__)
 
     def __str__(self):
         toPrint = ""
@@ -51,7 +53,8 @@ class AppExpr(object):
         self.exprDer.setExprTypes(context)
         self.exprIzq.setExprTypes(context)
         if self.exprIzq.getType().getImg() == None:
-            sys.stderr.write("ERROR: La parte izquierda de la aplicacion no es una funcion con dominio en " + str(self.exprDer.getType()))
+            sys.stderr.write("ERROR: La parte izquierda de la aplicacion no es una funcion con dominio en " + str(
+                self.exprDer.getType()))
             exit(1)
         self.type = Tipo(self.exprIzq.getType().getImg().getDom(), self.exprIzq.getType().getImg().getImg())
 

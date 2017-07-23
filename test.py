@@ -130,5 +130,7 @@ assert (str(expected18) == str(res18))
 
 
 
+# \x:Nat.if isZero(x) then 1 else 0
+
 
 

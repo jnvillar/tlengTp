@@ -30,15 +30,18 @@ class LambdaExpr(object):
 
     def evaluate(self, context, value=None):
         if self.value != self:
-            self.value.evaluate(context)
+            if(not isinstance(self.value,int) or isinstance(self.value,bool)):
+                self.value.evaluate(context)
         else:
             self.evaluateExpr(context)
 
     def evaluateExpr(self, context):
         if self.var.getName() in context:
             self.defined = True
+            self.expr.evaluate(context)
             self.value = self.expr.getValue()
-        self.expr.evaluate(context)
+        else:
+            self.expr.evaluate(context)
 
     def setExprTypes(self, context):
         if self.var.getName() in context:

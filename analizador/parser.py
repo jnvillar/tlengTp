@@ -10,7 +10,6 @@ from analizador.model import PredExpr
 from analizador.model import SuccExpr
 from analizador.model import Tipo
 from analizador.model import VarExpr
-from analizador.model import ZeroExpr
 from analizador.model import BooleanExpr
 from analizador.model import ParenthesisExpr
 

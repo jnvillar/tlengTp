@@ -8,7 +8,7 @@ class ZeroExpr(object):
         self.initialExpression = False
         self.defined = True
 
-    def evaluate(self, context, value = None):
+    def evaluate(self, context, value=None):
         pass
 
     def getType(self):
@@ -18,14 +18,14 @@ class ZeroExpr(object):
         return self.value
 
     def setExprTypes(self, context):
-    	pass
+        pass
 
     def isDefined(self):
         return self.defined
 
     def __str__(self):
-    	toPrint = ""+str(self.value)
+        toPrint = "" + str(self.value)
 
-    	if(self.initialExpression):
-            toPrint = toPrint+":"+str(self.type)
+        if (self.initialExpression):
+            toPrint = toPrint + ":" + str(self.type)
         return toPrint

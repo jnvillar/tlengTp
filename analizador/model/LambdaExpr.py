@@ -1,4 +1,6 @@
 from Tipo import *
+import sys
+
 
 class LambdaExpr(object):
     def __init__(self, var, tipoVar, expr):
@@ -16,8 +18,8 @@ class LambdaExpr(object):
         else:
             toPrint = str(self.expr)
 
-        if(self.initialExpression):
-            toPrint = toPrint+":"+str(self.type)
+        if (self.initialExpression):
+            toPrint = toPrint + ":" + str(self.type)
 
         return toPrint
 
@@ -26,13 +28,13 @@ class LambdaExpr(object):
             return str(self.var)
         return self.expr.getName()
 
-    def evaluate(self, context, value = None):
+    def evaluate(self, context, value=None):
         if self.value != self:
             self.value.evaluate(context)
         else:
             self.evaluateExpr(context)
 
-    def evaluateExpr(self,context):
+    def evaluateExpr(self, context):
         if self.var.getName() in context:
             self.defined = True
             self.value = self.expr.getValue()
@@ -40,7 +42,8 @@ class LambdaExpr(object):
 
     def setExprTypes(self, context):
         if self.var.getName() in context:
-            raise Exception("Hay variables repetidas en distintas lambdas")
+            sys.stderr.write("Hay variables repetidas en distintas lambdas")
+            exit(1)
         else:
             context[self.var.getName()] = self.tipoVar
             self.expr.setExprTypes(context)
@@ -54,4 +57,3 @@ class LambdaExpr(object):
 
     def getValue(self):
         return self.value
-

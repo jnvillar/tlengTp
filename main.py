@@ -1,4 +1,5 @@
 """Archivo principal de calculadora."""
+
 from analizador import parse
 import sys
 
@@ -11,3 +12,4 @@ while True:
         exp_str = raw_input('calculoLambda> ')
     print(parse(exp_str))
     exp_str = ""
+    sys.stderr.write("hola")

@@ -25,7 +25,7 @@ class SuccExpr(object):
 
         return toPrint
 
-    def evaluate(self, context, value = None):
+    def evaluate(self, context, value=None):
 
         self.expr.evaluate(context)
         if (self.expr.isDefined()):

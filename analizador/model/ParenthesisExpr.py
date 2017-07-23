@@ -20,15 +20,13 @@ class ParanthesisExpr(object):
 
         return toPrint
 
-    
     def evaluate(self, context, value=None):
         if self.value != self:
-            if(not isinstance(self.value,int) or isinstance(self.value,bool)):
+            if (not isinstance(self.value, int) or isinstance(self.value, bool)):
                 self.value.evaluate(context)
         else:
             self.evaluateExpr(context)
 
-        
     def evaluateExpr(self, context, value=None):
         self.expr.evaluate(context)
         if (self.expr.isDefined()):

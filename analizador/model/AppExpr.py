@@ -1,6 +1,8 @@
 from Tipo import *
+import sys
 
 g_count = 0
+
 
 class AppExpr(object):
     def __init__(self, expr1, expr2):
@@ -18,20 +20,17 @@ class AppExpr(object):
         else:
             self.evaluateExpr(context)
 
-        
-
-        
     def evaluateExpr(self, context, value=None):
         self.exprIzq.evaluate(context)
         self.exprDer.evaluate(context)
         valIzq = self.exprIzq.getValue()
         valDer = self.exprDer.getValue()
-        if not (valDer.__class__.__name__ == 'VarExpr' and valDer.getValue() == valDer) and not (valIzq.__class__.__name__ == 'VarExpr' and valIzq.getValue() == valIzq):
+        if not (valDer.__class__.__name__ == 'VarExpr' and valDer.getValue() == valDer) and not (
+                valIzq.__class__.__name__ == 'VarExpr' and valIzq.getValue() == valIzq):
             context[self.exprIzq.getValue().getName()] = valDer
             self.defined = True
             self.exprIzq.getValue().evaluate(context)
             self.value = self.exprIzq.getValue()
-
 
     def __str__(self):
         toPrint = ""
@@ -45,15 +44,13 @@ class AppExpr(object):
 
         return toPrint
 
-
     def setExprTypes(self, context):
         self.exprDer.setExprTypes(context)
         self.exprIzq.setExprTypes(context)
         if self.exprIzq.getType().getImg() == None:
-            raise Exception("ERROR: La parte izquierda de la aplicacion no es una funcion con dominio en " + str(self.exprDer.getType()))
-        
+            sys.stderr.write("ERROR: La parte izquierda de la aplicacion no es una funcion con dominio en " + str(self.exprDer.getType()))
+            exit(1)
         self.type = Tipo(self.exprIzq.getType().getImg().getDom(), self.exprIzq.getType().getImg().getImg())
-
 
     def getType(self):
         return self.type
@@ -61,11 +58,9 @@ class AppExpr(object):
     def getValue(self):
         return self.value
 
-
     def getName(self):
         return self.name
-        #return self.value.getName()
+        # return self.value.getName()
 
     def isDefined(self):
         return self.defined
-

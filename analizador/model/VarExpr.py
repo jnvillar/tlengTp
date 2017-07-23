@@ -1,4 +1,5 @@
 from Tipo import *
+import sys
 
 
 class VarExpr(object):
@@ -17,14 +18,14 @@ class VarExpr(object):
 
         return toPrint
 
-    def evaluate(self, context, value = None):
+    def evaluate(self, context, value=None):
         if self.name in context and context[self.name] != None:
             self.value = context[self.name]
             self.defined = True
 
     def setExprTypes(self, context):
         if self.name not in context:
-            raise Exception('ERROR: El termino no es cerrado (' + self.name + ' esta libre)')
+            sys.stderr.write('ERROR: El termino no es cerrado (' + self.name + ' esta libre)')
 
         if (context[self.name] != None):
             self.type = context[self.name]

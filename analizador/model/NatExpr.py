@@ -8,7 +8,7 @@ class NatExpr(object):
         self.initialExpression = False
         self.defined = True
 
-    def evaluate(self, context, value = None):
+    def evaluate(self, context, value=None):
         pass
 
     def getType(self):
@@ -18,7 +18,7 @@ class NatExpr(object):
         return self.value
 
     def setExprTypes(self, context):
-    	pass
+        pass
 
     def isDefined(self):
         return self.defined
@@ -31,6 +31,6 @@ class NatExpr(object):
         for x in range(self.value):
             toPrint = toPrint + ")"
 
-        if(self.initialExpression):
-            toPrint = toPrint+":"+str(self.type)
+        if (self.initialExpression):
+            toPrint = toPrint + ":" + str(self.type)
         return toPrint

@@ -32,9 +32,9 @@ class IfExpr(object):
             self.evaluateExpr(context)
 
     def evaluateExpr(self, context):
-        self.cond.evaluate(context,0)
-        self.trueExpr.evaluate(context,0)
-        self.falseExpr.evaluate(context,0)
+        self.cond.evaluate(context, 0)
+        self.trueExpr.evaluate(context, 0)
+        self.falseExpr.evaluate(context, 0)
         if self.cond.isDefined() and self.trueExpr.isDefined() and self.falseExpr.isDefined():
             self.defined = True
             self.value = self.trueExpr.getValue() if self.cond.getValue() else self.falseExpr.getValue()
@@ -47,9 +47,11 @@ class IfExpr(object):
         trueExprType = self.trueExpr.getType()
         falseExprType = self.falseExpr.getType()
         if trueExprType != falseExprType:
-            raise Exception("Las expresiones del if no son del mismo tipo")
+            sys.stderr.write("Las expresiones del if no son del mismo tipo")
+            exit(1)
         if self.cond.getType() != Tipo('Bool'):
-            raise Exception("Las condicion en el if no es de tipo Bool")
+            sys.stderr.write("Las condicion en el if no es de tipo Bool")
+            exit(1)
 
     def getType(self):
         return self.type

@@ -45,7 +45,7 @@ class LambdaExpr(object):
 
     def setExprTypes(self, context):
         if self.var.getName() in context:
-            sys.stderr.write("Hay variables repetidas en distintas lambdas")
+            sys.stderr.write("Hay variables repetidas en distintas lambdas \n")
             exit(1)
         else:
             context[self.var.getName()] = self.tipoVar

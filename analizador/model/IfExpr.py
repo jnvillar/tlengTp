@@ -49,10 +49,10 @@ class IfExpr(object):
         trueExprType = self.trueExpr.getType()
         falseExprType = self.falseExpr.getType()
         if trueExprType != falseExprType:
-            sys.stderr.write("Las expresiones del if no son del mismo tipo")
+            sys.stderr.write("Las expresiones del if no son del mismo tipo \n")
             exit(1)
         if self.cond.getType() != Tipo('Bool'):
-            sys.stderr.write("Las condicion en el if no es de tipo Bool")
+            sys.stderr.write("Las condicion en el if no es de tipo Bool \n")
             exit(1)
 
     def getType(self):

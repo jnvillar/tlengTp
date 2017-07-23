@@ -43,14 +43,14 @@ class AppExpr(object):
         if self.initialExpression:
             toPrint = toPrint + ":" + str(self.type)
 
-        return toPrint
+        return toPrinta
 
     def setExprTypes(self, context):
         self.exprDer.setExprTypes(context)
         self.exprIzq.setExprTypes(context)
         if self.exprIzq.getType().getImg() == None:
             sys.stderr.write("ERROR: La parte izquierda de la aplicacion no es una funcion con dominio en " + str(
-                self.exprDer.getType()))
+                self.exprDer.getType()) + "\n")
             exit(1)
         self.type = Tipo(self.exprIzq.getType().getImg().getDom(), self.exprIzq.getType().getImg().getImg())
 

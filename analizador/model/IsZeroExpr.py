@@ -12,7 +12,7 @@ class IsZeroExpr(object):
     def __str__(self):
         toPrint = ""
         if not self.defined:
-            toPrint = toPrint + "isZero("
+            toPrint = toPrint + "iszero("
             toPrint = toPrint + str(self.expr)
             toPrint = toPrint + ")"
         else:
@@ -25,11 +25,6 @@ class IsZeroExpr(object):
 
     def evaluate(self, context, value = None):
         self.expr.evaluate(context)
-        print str(value)+str(self.expr.__class__.__name__)
-        print str(value)+str(self.expr.getType())
-        print str(value)+str(self.expr.getValue())
-        print str(value)+str(self.expr.getValue().__class__.__name__)
-        print str(value)+str(self.expr.getValue() == 0)
         if self.expr.isDefined():
             self.value = self.expr.getValue() == 0
             self.defined = True

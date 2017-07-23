@@ -54,7 +54,7 @@ t_OPENPARENTHESIS = r'\('
 t_CLOSEPARENTHESIS = r'\)'
 t_SUCC = r'succ'
 t_PRED = r'pred'
-t_ISZERO = r'isZero'
+t_ISZERO = r'iszero'
 t_ARROW = r'->'
 
 
